@@ -1,4 +1,4 @@
-
+Now working with wxWidgets 3.1.1
 
 Description of Operations
 ---------------------------
