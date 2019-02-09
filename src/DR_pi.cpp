@@ -36,8 +36,6 @@
 #include "DRgui.h"
 
 
-class DR_pi;
-
 // the class factories, used to create and destroy instances of the PlugIn
 
 extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr)
@@ -202,8 +200,7 @@ void DR_pi::OnToolbarToolCallback(int id)
     
 	if(NULL == m_pDialog)
       {
-            m_pDialog = new Dlg(m_parent_window);
-            m_pDialog->plugin = this;
+            m_pDialog = new Dlg(m_parent_window, this);
             m_pDialog->Move(wxPoint(m_route_dialog_x, m_route_dialog_y));
       }
 

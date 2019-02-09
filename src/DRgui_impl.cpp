@@ -26,23 +26,36 @@
  */
 
 #include "DRgui_impl.h"
+#include "DRgui.h"
+#include "DR_pi.h"
+#include "icons.h"
+
 #include <wx/progdlg.h>
 #include <wx/wx.h>
 #include "wx/dir.h"
 #include <list>
 #include <cmath>
-#include "DR_pi.h"
 
-
-class Position;
-class DR_pi;
 
 #define FAIL(X) do { error = X; goto failed; } while(0)
 
-Dlg::Dlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : DlgDef( parent, id, title, pos, size, style )
-{	
-    this->Fit();
-    dbg=false; //for debug output set to true
+Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
+	: m_Dialog(parent)
+{
+	this->Fit();
+	dbg = false; //for debug output set to true
+	
+	pPlugIn = ppi;
+	pParent = parent;
+
+	wxIcon icon;
+	icon.CopyFromBitmap(*_img_DR);
+	SetIcon(icon);
+}
+
+Dlg::~Dlg()
+{
+	
 }
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype){
@@ -77,7 +90,7 @@ void Dlg::OnPSGPX( wxCommandEvent& event )
 
 void Dlg::OnClose(wxCloseEvent& event)
 {	
-	plugin->OnDRDialogClose();
+	pPlugIn->OnDRDialogClose();
 }
 
 bool Dlg::OpenXML()
@@ -253,13 +266,15 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
     case 1:
         {		
         if (dbg) cout<<"DR Calculation\n";      
-        double speed=0;
+        double speed=5;
 		int    interval=1;
         		
 		if(!this->m_Speed_PS->GetValue().ToDouble(&speed)){ speed=5.0;} // 5 kts default speed
-		interval = m_Nship->GetCurrentSelection();//S=1
+		interval = m_Nship->GetCurrentSelection();//S=1		
 
-		speed = speed*interval;
+		interval += 1;
+
+		speed = speed*(double)interval;
 
         int n=0;
         //int multiplier=1;
@@ -278,10 +293,10 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
 			if(!(*it).lon.ToDouble(&value1)){ /* error! */ }
 				loni = value1;
 
-		latN[n] = lati;
-		lonN[n] = loni;
+			latN[n] = lati;
+			lonN[n] = loni;
 
-		n++;//0,1,2,3
+			n++;//0,1,2,3
 		}
 		
 		my_positions.clear();
@@ -323,66 +338,68 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
 
 			DistanceBearingMercator(latN[i + 1], lonN[i + 1],latF, lonF,  &myDist, &myBrng);
 
-			total_dist = total_dist + myDist;
+			total_dist = total_dist + myDist; // 
 
 			if (total_dist > speed){	
-						// DR point after route point
-				        //
-						route_dist = total_dist - myDist; 			
-						remaining_dist = speed - route_dist;
+				//
+				// DR point is before the next route point
+				//
+				route_dist = total_dist - myDist;	// route_dist is the distance between the previous DR and the route point
+				remaining_dist = speed - route_dist;// distance between route point and next DR
 
-						DistanceBearingMercator( latN[i + 1], lonN[i + 1], latN[i], lonN[i],&myDist, &myBrng);
-						destLoxodrome(latN[i], lonN[i], myBrng, remaining_dist, &lati, &loni);
+				DistanceBearingMercator(latN[i + 1], lonN[i + 1], latN[i], lonN[i], &myDist, &myBrng);
+				destLoxodrome(latN[i], lonN[i], myBrng, remaining_dist, &lati, &loni);
 
-						// Put in DR after many route points
-						my_point.lat = wxString::Format(wxT("%f"),lati);
-						my_point.lon = wxString::Format(wxT("%f"),loni);
-						my_point.routepoint = 0;			
+				// Put in the DR point after the route point
+				my_point.lat = wxString::Format(wxT("%f"), lati);
+				my_point.lon = wxString::Format(wxT("%f"), loni);
+				my_point.routepoint = 0;
+				my_points.push_back(my_point);
+
+				latF = lati;
+				lonF = loni;
+
+				total_dist = 0;
+
+				// 
+				// 
+				DistanceBearingMercator(latN[i + 1], lonN[i + 1], latF, lonF, &myDistForBrng, &myBrng);// Distance between route points
+
+				if (myDistForBrng > speed) {
+					// 
+					//
+					// put in the DR positions
+					//
+					count_pts = (int)floor(myDistForBrng / speed);
+					//
+					remaining_dist = myDistForBrng - (count_pts*speed);
+					DistanceBearingMercator(latN[i + 1], lonN[i + 1], latF, lonF, &myDistForBrng, &myBrng);
+
+					for (c = 1; c <= count_pts; c++) {
+						destLoxodrome(latF, lonF, myBrng, speed*c, &lati, &loni);
+						// print mid points
+						my_point.lat = wxString::Format(wxT("%f"), lati);
+						my_point.lon = wxString::Format(wxT("%f"), loni);
+						my_point.routepoint = 0;
 						my_points.push_back(my_point);
-			            
-						latF = lati;
-						lonF = loni;
+						//	End of prints					
+					}
 
-						total_dist = 0;
-			    
-						// 
-				        // 
-						DistanceBearingMercator(latN[i + 1], lonN[i + 1], latF, lonF, &myDistForBrng, &myBrng);
-				
-				        if (myDistForBrng > speed){
-													
-							// put in the DR positions
-							//
-							count_pts = (int)floor(myDistForBrng/speed);
-							//
-							remaining_dist = myDistForBrng - (count_pts*speed);
-							DistanceBearingMercator(latN[i + 1], lonN[i + 1], latF, lonF, &myDistForBrng, &myBrng);
-							
-							for (c = 1; c <= count_pts ; c++){							
-								destLoxodrome(latF, lonF, myBrng, speed*c, &lati, &loni);				
-								// print mid points
-								my_point.lat = wxString::Format(wxT("%f"),lati);
-								my_point.lon = wxString::Format(wxT("%f"),loni);
-								my_point.routepoint = 0;
-								my_points.push_back(my_point);
-								//	End of prints					
-								}													
-						
-							latF = lati;
-							lonF = loni;
-						
-							total_dist = 0; 
-							//
-							//
-							// All the DR positions inserted
-						}
-			
-						if (total_dist == 0){
-							DistanceBearingMercator(latN[i + 1], lonN[i + 1], latF, lonF, &myDistForBrng, &myBrng);
-							total_dist = myDistForBrng;
-							latF = latN[i+1];
-							lonF = lonN[i+1];
-						}
+					latF = lati;
+					lonF = loni;
+
+					total_dist = 0;
+					//
+					//
+					// All the DR positions inserted for this leg
+				}
+
+				if (total_dist == 0) {
+					DistanceBearingMercator(latN[i + 1], lonN[i + 1], latF, lonF, &myDistForBrng, &myBrng);
+					total_dist = myDistForBrng; // distance between DR and the next route point
+					latF = latN[i + 1];
+					lonF = lonN[i + 1];
+				}
 			
 			}															
 			else{

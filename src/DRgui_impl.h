@@ -32,8 +32,10 @@
 #include "wx/wx.h"
 #endif
 
+
 #include "DRgui.h"
 #include "DR_pi.h"
+
 #include "NavFunc.h"
 #include "tinyxml.h"
 
@@ -43,15 +45,20 @@
 using namespace std;
 
 class DR_pi;
-
 class Position;
 
-class Dlg : public DlgDef
+class Dlg : public m_Dialog
 {
 public:
-        Dlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("DR Plugin"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+	Dlg(wxWindow *parent, DR_pi *ppi);
+	~Dlg();
+        
+	wxWindow *pParent;
+	DR_pi *pPlugIn;
 
-        void OnPSGPX( wxCommandEvent& event );		
+	
+	
+	    void OnPSGPX( wxCommandEvent& event );		
 		bool OpenXML();
 		
 		vector<Position> my_positions;
@@ -59,12 +66,8 @@ public:
 
         void Calculate( wxCommandEvent& event, bool Export, int Pattern );
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
-
-        
+       				
 		
-		
-		
-		DR_pi *plugin; 
 
 		wxString rte_start;
 	    wxString rte_end;

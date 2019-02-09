@@ -39,19 +39,20 @@
 
 #include "ocpn_plugin.h" //Required for OCPN plugin functions
 #include "DRgui_impl.h"
+#include "DRgui.h"
 
 #include "version.h"
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    7
 
-class Dlg;
-
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
 #define CALCULATOR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
+
+class Dlg;
 
 class DR_pi : public opencpn_plugin_17
 {
@@ -90,16 +91,16 @@ public:
       void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};      
 	  void OnDRDialogClose();
 
+	  wxWindow         *m_parent_window;
+	  
 private:
       
-	  void OnClose( wxCloseEvent& event );
-	  DR_pi *plugin;
-	  
+	  Dlg               *m_pDialog;
 	  wxFileConfig      *m_pconfig;
-      wxWindow          *m_parent_window;
+     
       bool              LoadConfig(void);
       bool              SaveConfig(void);
-      Dlg               *m_pDialog;
+      
       int               m_route_dialog_x, m_route_dialog_y,m_route_dialog_width,m_route_dialog_height;
       int               m_display_width, m_display_height;      
       int               m_leftclick_tool_id;
