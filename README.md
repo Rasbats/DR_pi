@@ -1,4 +1,4 @@
-Now working with wxWidgets 3.1.1
+Now working with wxWidgets 3.1.2
 
 Description of Operations
 ---------------------------
@@ -10,5 +10,7 @@ The route name is the name of the route within the GPX file.
 3. Using DR_pi (Generate) select the GPX you exported.
 4. With the second file dialogue save the GPX+DR as a different GPX file.
 5. Use Route Manager to import the route + DR positions.
+
+The plugin now has the ability to accept a multi-leg route.
 
 Mike 
