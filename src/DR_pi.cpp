@@ -97,9 +97,16 @@ int DR_pi::Init(void)
 
       //    This PlugIn needs a toolbar icon, so request its insertion
 	if(m_bDRShowIcon)
-      m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_DR, _img_DR, wxITEM_CHECK,
-            _("DR"), _T(""), NULL,
-             CALCULATOR_TOOL_POSITION, 0, this);
+
+#ifdef DR_USE_SVG
+		m_leftclick_tool_id = InsertPlugInToolSVG(_T("DR"), _svg_dr, _svg_dr, _svg_dr_toggled,
+			wxITEM_CHECK, _("DR"), _T(""), NULL, CALCULATOR_TOOL_POSITION, 0, this);
+#else
+		m_leftclick_tool_id = InsertPlugInTool(_T(""), _img_DR, _img_DR, wxITEM_CHECK,
+			_("DR"), _T(""), NULL,
+			CALCULATOR_TOOL_POSITION, 0, this);
+#endif
+    
 
       m_pDialog = NULL;
 

@@ -12,5 +12,9 @@ extern void initialize_images(void);
 extern wxBitmap *_img_DR_pi;
 extern wxBitmap *_img_DR;
 
+#ifdef DR_USE_SVG
+extern wxString _svg_dr;
+extern wxString _svg_dr_toggled;
+#endif
 
 #endif /* ICONS_H */

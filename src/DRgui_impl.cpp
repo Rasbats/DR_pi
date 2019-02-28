@@ -48,8 +48,10 @@ Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 	pPlugIn = ppi;
 	pParent = parent;
 
-	wxIcon icon;
-	icon.CopyFromBitmap(*_img_DR);
+	wxString blank_name = *GetpSharedDataLocation()
+		+ _T("plugins/DR_pi/data/blank.ico");
+
+	wxIcon icon(blank_name, wxBITMAP_TYPE_ICO);
 	SetIcon(icon);
 }
 

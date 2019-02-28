@@ -5,10 +5,16 @@
 #endif
 #include <wx/mstream.h>
 #include "icons.h"
+#include <wx/filename.h>
 
 wxBitmap *_img_DR_pi;
 wxBitmap *_img_DR;
 
+#ifdef DR_USE_SVG
+#include "ocpn_plugin.h"
+wxString _svg_dr;
+wxString _svg_dr_toggled;
+#endif
 
 void initialize_images(void)
 {
@@ -21,5 +27,16 @@ void initialize_images(void)
 		_img_DR = new wxBitmap(wxImage(sm));
 	}
 	
+#ifdef DR_USE_SVG
+	wxFileName fn;
+	fn.SetPath(*GetpSharedDataLocation());
+	fn.AppendDir(_T("plugins"));
+	fn.AppendDir(_T("dr_pi"));
+	fn.AppendDir(_T("data"));
+	fn.SetFullName(_T("dr_pi.svg"));
+	_svg_dr = fn.GetFullPath();
+	fn.SetFullName(_T("dr_pi_toggled.svg"));
+	_svg_dr_toggled = fn.GetFullPath();
+#endif
 	return;
 }
