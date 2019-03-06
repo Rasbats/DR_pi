@@ -67,6 +67,16 @@ DR_pi::DR_pi(void *ppimgr)
 {
       // Create the PlugIn icons
       initialize_images();
+
+	  wxString shareLocn = *GetpSharedDataLocation() +
+		  _T("plugins") + wxFileName::GetPathSeparator() +
+		  _T("dr_pi") + wxFileName::GetPathSeparator()
+		  + _T("data") + wxFileName::GetPathSeparator();
+	  wxImage panelIcon(shareLocn + _T("dr_pi_panel_icon.png"));
+	  if (panelIcon.IsOk())
+		  m_panelBitmap = wxBitmap(panelIcon);
+	  else
+		  wxLogMessage(_T("    DR_pi panel icon NOT loaded"));
 	  m_bShowDR = false;
 }
 
@@ -169,7 +179,7 @@ int DR_pi::GetPlugInVersionMinor()
 
 wxBitmap *DR_pi::GetPlugInBitmap()
 {
-      return _img_DR_pi;
+      return &m_panelBitmap;
 }
 
 wxString DR_pi::GetCommonName()
@@ -180,7 +190,7 @@ wxString DR_pi::GetCommonName()
 
 wxString DR_pi::GetShortDescription()
 {
-      return _("DR Positions");
+      return _("DR Positions using GPX files");
 }
 
 wxString DR_pi::GetLongDescription()

@@ -109,6 +109,7 @@ private:
 
 	  bool             m_bDRShowIcon;
 	  bool             m_bShowDR;
+	  wxBitmap			m_panelBitmap;
 };
 
 #endif
