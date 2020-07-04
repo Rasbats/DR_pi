@@ -43,9 +43,6 @@
 
 #include "version.h"
 
-#define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    7
-
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
@@ -54,7 +51,7 @@
 
 class Dlg;
 
-class DR_pi : public opencpn_plugin_17
+class DR_pi : public opencpn_plugin_116
 {
 public:
       DR_pi(void *ppimgr);
