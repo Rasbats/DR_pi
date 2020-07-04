@@ -39,7 +39,7 @@ SET(VERSION_MAJOR "2")
 SET(VERSION_MINOR "1")
 
 set(VERSION_PATCH "2")
-set(VERSION_TWEAK "4")
+set(VERSION_TWEAK "5")
 set(VERSION_DATE "04/07/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -62,7 +62,7 @@ set(PROD "prod") # Standard Repos
 set(BETA "beta") # Standard Repos
 set(ALPHA "alpha") # Standard Repos
 
-set(CLOUDSMITH_USER "mike-rossiter")
+set(CLOUDSMITH_USER "opencpn")
 # set this if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "sar")
 set(CLOUDSMITH_BASE_REPOSITORY "dr")
 
