@@ -39,7 +39,7 @@ SET(VERSION_MAJOR "2")
 SET(VERSION_MINOR "1")
 
 set(VERSION_PATCH "2")
-set(VERSION_TWEAK "5")
+set(VERSION_TWEAK "6")
 set(VERSION_DATE "04/07/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -64,9 +64,9 @@ set(ALPHA "alpha") # Standard Repos
 
 set(CLOUDSMITH_USER "opencpn")
 # set this if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "sar")
-set(CLOUDSMITH_BASE_REPOSITORY "dr")
+set(CLOUDSMITH_BASE_REPOSITORY "otcurrent")
 
-set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:navigation:otcurrent")
+set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/dreckoning.html")
 set(XML_SUMMARY "Plugin to make GPX files for dead reckoning positions")
 set(XML_DESCRIPTION "DR creates GPX files for dead reckoning positions")
 
