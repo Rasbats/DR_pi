@@ -198,10 +198,10 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
 	int num_hours;
 
 	num_hours = this->m_Nship->GetSelection();
-	
-	// wxString str_countPts =  wxString::Format(wxT("%d"), (int)num_hours);
-    // wxMessageBox(str_countPts,_T("count_hours"));
 
+	wxString defaultFileName;
+    defaultFileName = this->m_Route->GetValue();
+	
 	lat1 = 0.0;
 	lon1 = 0.0;
     //if (error_occured) wxMessageBox(_T("error in conversion of input coordinates"));
@@ -209,7 +209,7 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
     //error_occured=false;
     wxString s;
     if (write_file){
-        wxFileDialog dlg(this, _("Export DR Positions in GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+        wxFileDialog dlg(this, _("Export DR Positions in GPX file as"), wxEmptyString, defaultFileName, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
         if (dlg.ShowModal() == wxID_CANCEL){
             error_occured=true;     // the user changed idea...
 		    return;
@@ -236,6 +236,8 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
     TiXmlElement * Route = new TiXmlElement( "rte" );
     TiXmlElement * RouteName = new TiXmlElement( "name" );
     TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
+	TiXmlText * textSpeed = new TiXmlText(this->m_Speed_PS->GetValue().ToUTF8());
+	
 
     if (write_file){
         doc.LinkEndChild( root );
@@ -260,6 +262,10 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
         TiXmlText * text6 = new TiXmlText( "End" );
         Extensions->LinkEndChild( EndN );
         EndN->LinkEndChild( text6 );
+
+		TiXmlElement * Speed = new TiXmlElement("opencpn:planned_speed");
+		Extensions->LinkEndChild(Speed);	
+		Speed->LinkEndChild(textSpeed);
 
         Route->LinkEndChild( Extensions );
     }
@@ -461,7 +467,7 @@ void Dlg::Calculate( wxCommandEvent& event, bool write_file, int Pattern  ){
        if (write_file){
             root->LinkEndChild( Route );
             // check if string ends with .gpx or .GPX
-            if (!wxFileExists(s)){
+			if (!s.EndsWith(_T(".gpx"))) {
                  s = s + _T(".gpx");
             }
             wxCharBuffer buffer=s.ToUTF8();

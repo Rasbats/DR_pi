@@ -18,6 +18,7 @@
 #include <wx/textctrl.h>
 #include <wx/sizer.h>
 #include <wx/choice.h>
+#include <wx/statline.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
@@ -41,7 +42,9 @@ class m_Dialog : public wxDialog
 		wxStaticText* m_staticText32111111;
 		wxStaticText* m_staticText3311111;
 		wxStaticText* m_staticText7;
+		wxStaticLine* m_staticline1;
 		wxButton* m_button3111;
+		wxStaticText* m_staticText71;
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
