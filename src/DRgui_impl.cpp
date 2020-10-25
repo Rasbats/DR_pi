@@ -120,7 +120,7 @@ bool Dlg::OpenXML()
                 m_gpx_path = fn.GetPath();
             }
         }
-		else if(response = wxID_CANCEL){
+		else if(response == wxID_CANCEL){
 		return false;
 		}
     
