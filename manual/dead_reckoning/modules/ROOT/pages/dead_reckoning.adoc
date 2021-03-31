@@ -1,6 +1,6 @@
 == Dead Reckoning
 
-image::dr_pi.png[]
+image:dr_pi.png[role=left] .
 
 Add DR positions to a route by means of editing a gpx file, which has
 been exported from 'Route Manager'.
@@ -9,7 +9,7 @@ been exported from 'Route Manager'.
 
 Available in the managed plugins catalog.
 
-image::managed_plugin.png[]
+image:managed_plugin.png[role=left] .
 
 === Links
 
