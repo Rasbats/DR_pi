@@ -7,8 +7,9 @@ been exported from 'Route Manager'.
 
 === Installation
 
-Windows: Use the latest .dll
-http://github.com/Rasbats/DR_pi/releases[here]. Remove the .pdf extension.
+Available in the managed plugins catalog.
+
+image::managed_plugin.png[]
 
 === Links
 
