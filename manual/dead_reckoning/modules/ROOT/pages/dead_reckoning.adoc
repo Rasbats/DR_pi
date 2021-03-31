@@ -13,13 +13,13 @@ image:managed_plugin.png[role=left] .
 
 === Links
 
-* Source: https://github.com/Rasbats/DR_pi[Gihub Repository] +
-* Releases: https://github.com/Rasbats/DR_pi/releases[Github Releases] +
-* Downloads: https://opencpn.org/OpenCPN/plugins/dreckoning.html[Website Download] +
+* Source: https://github.com/Rasbats/DR_pi[Gihub Repository]  
+* Releases: https://github.com/Rasbats/DR_pi/releases[Github Releases]  
+* Downloads: https://opencpn.org/OpenCPN/plugins/dreckoning.html[Website Download]  
 * Forum:
-http://www.cruisersforum.com/forums/f134/dead-reckoning-plugin-for-ocpn-82864.html[Cruiser's Forum Dead Reckoning thread] +
+http://www.cruisersforum.com/forums/f134/dead-reckoning-plugin-for-ocpn-82864.html[Cruiser's Forum Dead Reckoning thread]  
 * Forum:
-http://www.cruisersforum.com/forums/f134/dr-plugin-splitting-up-gpx-route-files-114482.html[DR plugin splitting up gpx routefiles] +
+http://www.cruisersforum.com/forums/f134/dr-plugin-splitting-up-gpx-route-files-114482.html[DR plugin splitting up gpx routefiles]  
 
 === Definition
 
