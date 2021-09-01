@@ -1,17 +1,17 @@
-== Dead Reckoning
+= Dead Reckoning
 
 image:dr_pi.png[role=left] .
 
 Add DR positions to a route by means of editing a gpx file, which has
 been exported from 'Route Manager'.
 
-=== Installation
+== Installation
 
 Available in the managed plugins catalog.
 
 image:managed_plugin.png[role=left] .
 
-=== Links
+== Links
 
 * Source: https://github.com/Rasbats/DR_pi[Gihub Repository]  
 * Releases: https://github.com/Rasbats/DR_pi/releases[Github Releases]  
@@ -21,7 +21,7 @@ http://www.cruisersforum.com/forums/f134/dead-reckoning-plugin-for-ocpn-82864.ht
 * Forum:
 http://www.cruisersforum.com/forums/f134/dr-plugin-splitting-up-gpx-route-files-114482.html[DR plugin splitting up gpx routefiles]  
 
-=== Definition
+== Definition
 
 In navigation, dead reckoning or dead-reckoning (also ded for deduced
 reckoning or *DR*) is the process of calculating one's current
@@ -29,7 +29,7 @@ reckoning or *DR*) is the process of calculating one's current
 advancing that *position* based upon known or estimated speeds over
 elapsed time and course.
 
-=== 1. What and Why
+== 1. What and Why
 
 The DR plugin is a means of adding DR positions to a route. Because the
 plugin cannot access 'Route Manager' directly it works by editing a gpx
@@ -42,14 +42,14 @@ This plugin is a temporary solution to the problem of creating DR
 positions. The *Draw plugin* now allows the creation of DR positions for
 course legs.
 
-=== 2. Install
+== 2. Install
 
 Copy 'DR_pi.dll' to the plugins folder. Start OpenCPN. Tools/Options and
 select 'Enable' for the DR entry.
 
 image::tools_plugins.png[]
 
-=== 3. Standard actions
+== 3. Standard actions
 
 Save the route which you want to add DR positions to by using 'Route
 Manager'. Make a note of the folder where this original route file can
