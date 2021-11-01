@@ -56,7 +56,9 @@ public:
 	wxWindow *pParent;
 	DR_pi *pPlugIn;
 
-	
+#ifdef __OCPN__ANDROID__
+    void OnMouseEvent( wxMouseEvent& event );
+#endif
 	
 	    void OnPSGPX( wxCommandEvent& event );		
 		bool OpenXML();
