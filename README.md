@@ -1,16 +1,31 @@
-Now working with wxWidgets 3.1.2
+# shipdriver\_pi README
 
-Description of Operations
----------------------------
-The DR plugin is for editing gpx files that have been saved on your pc. 
-The route name is the name of the route within the GPX file.
+A plugin for OpenCPN. Almost a simulator or is it a game?
 
-1. Use Route Manager to export the route GPX.
-2. Open DR and set the parameters.
-3. Using DR_pi (Generate) select the GPX you exported.
-4. With the second file dialogue save the GPX+DR as a different GPX file.
-5. Use Route Manager to import the route + DR positions.
+More user info: https://opencpn.org/OpenCPN/plugins/shipdriver.html
 
-The plugin now has the ability to accept a multi-leg route.
+Building is documented in INSTALL.md
 
-Mike 
+The plugin uses a continous integration setup described in the
+[wiki](https://github.com/Rasbats/managed_plugins/wiki/Alternative-Workflow)
+This setup is also able to push all updated metadata files to a clone
+of https://github.com/OpenCPN/plugins in order to simplify pull requests
+against this site.
+
+
+## Copyright and licensing
+
+This software is Copyright (c) Mike Rossiter 2017-2020. It is distributed
+under the terms of the Gnu Public License version 3 or, at your option,
+any later version. See the file COPYING for details.
+
+Icons made by Freepik(http://www.freepik.com) from
+Flaticon(https://www.flaticon.com/) and is licensed using Creative Commons
+BY 3.0 (http://creativecommons.org/licenses/by/3.0/)
+
+The documentation in the directory manual is distributed using a
+CC BY-SA 4.0 license.
+
+The software contains open-source licensed files under different licenses
+including Expat, Apache-2  and Libpng. See the source files for details.
+

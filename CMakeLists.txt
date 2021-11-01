@@ -1,171 +1,108 @@
-##---------------------------------------------------------------------------
-## Author:      Rasbats aka. Mike Rossiter
-## Copyright:
-## License:     wxWidgets License
-##---------------------------------------------------------------------------
-## ----- When changing this file do NOT change the order in which sections occur        ----- ##
-## ----- Changes should only be made between the section blocks that identify where     ----- ##
-## ----- these changes should be. The whole configuration process relies on this        ----- ##
-## ----- sequence to be successful                                                      ----- ##
-##
+# ~~~
+# Summary:      Main plugin build script
+# Copyright (c) 2020-2021 Mike Rossiter
+# License:      GPLv3+
+# ~~~
 
-##
-## ----- Modify section below to include all the details for your plugin ----- ##
-##
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
 
-set(CMLOC "CMakeLists: ")
-
-# define minimum cmake version
-cmake_minimum_required(VERSION 3.1.1)
-if(COMMAND cmake_policy)
-    if(POLICY CMP0043)
-        cmake_policy(SET CMP0043 NEW)
-    endif(POLICY CMP0043)
-    cmake_policy(SET CMP0048 NEW)
-    if(POLICY CMP0077)
-        cmake_policy(SET CMP0077 NEW)
-    endif(POLICY CMP0077)
-endif(COMMAND cmake_policy)
-
-# define plugin name, owner and versions
-
-SET(VERBOSE_NAME "DR_pi")
-SET(COMMON_NAME "DR")
-SET(TITLE_NAME "DR")
-SET(PACKAGE_CONTACT "Rasbats")
-SET(PACKAGE "dr")
-
-SET(VERSION_MAJOR "3")
-SET(VERSION_MINOR "1")
-
-set(VERSION_PATCH "1")
-set(VERSION_TWEAK "3")
-set(VERSION_DATE "04/07/2020")
-set(OCPN_MIN_VERSION "ov50")
-set(OCPN_API_VERSION_MAJOR "1")
-set(OCPN_API_VERSION_MINOR "16")
-set(TP_COMMENT "  * Release for O5 using CI")
-
-set(PARENT "opencpn")
+# -------- Cmake setup ---------
 #
+cmake_minimum_required(VERSION 3.12.0)
+include(${CMAKE_SOURCE_DIR}/cmake/CmakeSetup.cmake NO_POLICY_SCOPE)
+message(STATUS "Cmake version: ${CMAKE_VERSION}.")
+
+
+# -------- Build setup  --------
 #
+include(PluginOptions)
+if (BUILD_TYPE)
+  message(STATUS "Building: ${BUILD_TYPE}")
+else ()
+  message(STATUS "Configuring")
+endif ()
+
+include(Plugin.cmake)
+
+# -------- Setup completed, build the plugin --------
 #
+project(DR_pi VERSION ${PKG_VERSION})
+include(PluginCompiler)
+
+add_library(${CMAKE_PROJECT_NAME} SHARED ${SRC})
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/include)
+
+add_subdirectory("libs/${PKG_API_LIB}")
+target_link_libraries(${CMAKE_PROJECT_NAME} ocpn::api)
+
+set(VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+set(PACKAGE_NAME ${CMAKE_PROJECT_NAME})
+
+# Create the minimim ocpn version id string like ov50
+string(REGEX REPLACE "\([0-9]\)\.\([0-9]\).*" "ov\\1\\2"
+       OCPN_MIN_VERSION ${API_OCPN_MIN_VERSION})
+
+if (COMMAND late_init)
+  late_init()
+endif ()
+
+# Set up targets. Targets sets up new targets with BUILD_TYPE set to
+# 'flatpak', 'android' or 'tarball'. The initial call without BUILD_TYPE ends
+# here.
 #
-#
-#
-#
-# The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
-set(GIT_REPOSITORY_SERVER "github.com")
+include(Targets)
+create_targets(
+  ${PROJECT_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.shipdriver.yaml
+)
+if ("${BUILD_TYPE}" STREQUAL "")
+  return ()
+endif ()
 
-# Specifies cloudsmith repository sufficies
-set(PROD "prod") # Standard Repos
-set(BETA "beta") # Standard Repos
-set(ALPHA "alpha") # Standard Repos
+if (NOT ${BUILD_TYPE} STREQUAL "flatpak")
+  # Build package as required (flatpak already dealt with).
+  #
+  include(PluginInstall)
+  if (QT_ANDROID)
+    include(AndroidLibs)
+  else ()
+    include(PluginLibs)
+  endif ()
+  include(PluginLocalization)
 
-set(CLOUDSMITH_USER "opencpn")
-# set this if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "sar")
-set(CLOUDSMITH_BASE_REPOSITORY "dr")
+  include_directories(BEFORE ${CMAKE_BINARY_DIR}/include)
 
-set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:navigation:dead_reckoning")
-set(XML_SUMMARY "Plugin to make GPX files for dead reckoning positions")
-set(XML_DESCRIPTION "DR creates GPX files for dead reckoning positions")
+  if (COMMAND add_plugin_libraries)
+    add_plugin_libraries()
+  endif ()
 
-##
-## ----- Modify section above to include all the details for your plugin ----- ##
-##
-##
-## ----- Modify section below if there are special requirements for the plugin ----- ##
-##
+endif ()
 
-OPTION(DR_USE_SVG "Use SVG graphics" ON)
+configure_file(
+  ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_BINARY_DIR}/include//config.h
+  @ONLY
+)
 
-set(CMAKE_CXX_STANDARD 11)
+configure_file(
+  # The cloudsmith upload script
+  ${CMAKE_SOURCE_DIR}/ci/upload.sh.in ${CMAKE_BINARY_DIR}/upload.sh
+  @ONLY
+)
+configure_file(
+  # The cloudsmith upload script, windows bat file.
+  ${CMAKE_SOURCE_DIR}/ci/upload.bat.in ${CMAKE_BINARY_DIR}/upload.bat
+  @ONLY
+)
 
-# Prefer libGL.so to libOpenGL.so, see CMP0072
-###set(OpenGL_GL_PREFERENCE "LEGACY")
-# Don't use local version of GLU library
-###set(USE_LOCAL_GLU FALSE)
-
-if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    set(CMAKE_BUILD_TYPE
-        "Release"
-        CACHE STRING "Choose the type of build" FORCE)
-endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
-message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
-
-##
-## ----- The statements below are used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
-##
-project(${PACKAGE})
-
-include("cmake/PluginSetup.cmake")
-
-##
-## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
-##
-
-##
-## ----- Modify section below if there are special requirements for the plugin ----- ##
-##
-
-set(CMAKE_VERBOSE_MAKEFILE ON)
-option(Plugin_CXX11 "Use c++11" OFF)
-
-##
-## ----- Modify section above if there are special requirements for the plugin ----- ##
-##
-
-##
-## ----- do not change next section - needed to configure build process ----- ##
-##
-
-include("cmake/PluginConfigure.cmake")
-
-##
-## ----- do not change section above - needed to configure build process ----- ##
-##
-
-#
-# ----- Change below to match project requirements for source, headers, etc. ----- ##
-#
-
-SET(SRC_DR
-        src/DR_pi.h
-        src/DR_pi.cpp
-        src/icons.h
-        src/icons.cpp
-	    src/DRgui.h
-	    src/DRgui.cpp
-	    src/DRgui_impl.cpp
-	    src/DRgui_impl.h
-	    src/NavFunc.h
-	    src/NavFunc.cpp
-		src/ocpn_plugin.h
-		src/tinyxml.cpp
-        src/tinyxmlerror.cpp
-        src/tinyxmlparser.cpp
-        src/tinyxml.h
-	)
-
-
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_DR})
-
-ADD_DEFINITIONS(-DDR_USE_SVG)
-ADD_DEFINITIONS(-DTIXML_USE_STL)
-
-##
-## ----- Change above to match project requirements ----- ##
-##
-
-##
-## ----- do not change next section - needed to configure build process ----- ##
-##
-
-include("cmake/PluginInstall.cmake")
-include("cmake/PluginLocalization.cmake")
-include("cmake/PluginPackage.cmake")
-
-##
-## ----- do not change section above - needed to configure build process ----- ##
-##
+set(checksum "@checksum@")
+configure_file(
+  # The XML metadata file
+  ${CMAKE_SOURCE_DIR}/plugin.xml.in
+  ${CMAKE_BINARY_DIR}/${pkg_displayname}.xml.in
+  @ONLY
+)

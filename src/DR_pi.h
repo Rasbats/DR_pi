@@ -41,7 +41,7 @@
 #include "DRgui_impl.h"
 #include "DRgui.h"
 
-#include "version.h"
+#include "config.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition

@@ -35,10 +35,6 @@
 #include "DRgui_impl.h"
 #include "DRgui.h"
 
-#include "version.h"
-#include "wxWTranslateCatalog.h"
-
-
 // the class factories, used to create and destroy instances of the PlugIn
 
 extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr)
@@ -74,7 +70,7 @@ DR_pi::DR_pi(void *ppimgr)
 	  wxFileName fn;
 	  wxString tmp_path;
 
-	  tmp_path = GetPluginDataDir("dr_pi");
+	  tmp_path = GetPluginDataDir("DR_pi");
 	  fn.SetPath(tmp_path);
 	  fn.AppendDir(_T("data"));
 	  fn.SetFullName("dr_pi_panel_icon.png");
@@ -161,19 +157,21 @@ bool DR_pi::DeInit(void)
     
     SaveConfig();
 
-    RequestRefresh(m_parent_window); // refresh mainn window
+    RequestRefresh(m_parent_window); // refresh main window
 
     return true;
 }
 
 int DR_pi::GetAPIVersionMajor()
 {
-      return OCPN_API_VERSION_MAJOR;
+      return atoi(API_VERSION);
 }
 
 int DR_pi::GetAPIVersionMinor()
 {
-      return OCPN_API_VERSION_MINOR;
+      std::string v(API_VERSION);
+    size_t dotpos = v.find('.');
+    return atoi(v.substr(dotpos + 1).c_str());
 }
 
 int DR_pi::GetPlugInVersionMajor()
