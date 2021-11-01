@@ -42,6 +42,10 @@
 #include <list>
 #include <vector>
 
+#ifdef __OCPN__ANDROID__
+#include "qtstylesheet.h"
+#endif
+
 using namespace std;
 
 class DR_pi;
