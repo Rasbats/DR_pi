@@ -138,6 +138,18 @@ bool Dlg::OpenXML()
     
 	wxArrayString file_array;
     wxString filename;
+
+	if (m_gpx_path == wxEmptyString) {
+		wxFileName fn;
+		wxString tmp_path;
+
+		tmp_path = GetPluginDataDir("DR_pi");
+		fn.SetPath(tmp_path);
+		fn.AppendDir(_T("data"));
+
+		m_gpx_path = fn.GetFullPath();
+	}
+
 	wxFileDialog openDialog( this, _( "Import GPX Route file" ), m_gpx_path, wxT ( "" ),
                 wxT ( "GPX files (*.gpx)|*.gpx|All files (*.*)|*.*" ),
                 wxFD_OPEN | wxFD_MULTIPLE );
