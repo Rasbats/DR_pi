@@ -36,6 +36,9 @@
 #include <list>
 #include <cmath>
 
+#ifdef __OCPN__ANDROID__
+wxWindow *g_Window;
+#endif
 
 #define FAIL(X) do { error = X; goto failed; } while(0)
 
@@ -53,12 +56,41 @@ Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 
 	wxIcon icon(blank_name, wxBITMAP_TYPE_ICO);
 	SetIcon(icon);
+
+#ifdef __OCPN__ANDROID__
+    g_Window = this;
+    GetHandle()->setStyleSheet( qtStyleSheet);
+    Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
+#endif
+	
 }
 
 Dlg::~Dlg()
 {
 	
 }
+
+#ifdef __OCPN__ANDROID__ 
+wxPoint g_startPos;
+wxPoint g_startMouse;
+wxPoint g_mouse_pos_screen;
+
+void Dlg::OnMouseEvent( wxMouseEvent& event )
+{
+    g_mouse_pos_screen = ClientToScreen( event.GetPosition() );
+    
+    if(event.Dragging()){
+        int x = wxMax(0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
+        int y = wxMax(0, g_startPos.y + (g_mouse_pos_screen.y - g_startMouse.y));
+        int xmax = ::wxGetDisplaySize().x - GetSize().x;
+        x = wxMin(x, xmax);
+        int ymax = ::wxGetDisplaySize().y - (GetSize().y * 2);          // Some fluff at the bottom
+        y = wxMin(y, ymax);
+        
+        g_Window->Move(x, y);
+    }
+}
+#endif
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype){
 //add point
