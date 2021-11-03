@@ -18,6 +18,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+<<<<<<< HEAD
 # Set up option NPROC: Number of processors used when compiling.
 if (DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
   set(_nproc $ENV{CMAKE_BUILD_PARALLEL_LEVEL})
@@ -51,6 +52,8 @@ set(OCPN_NPROC ${_nproc}
 )
 message(STATUS "Build uses ${OCPN_NPROC} processors")
 
+=======
+>>>>>>> shipdriver/master
 set(_ocpn_cflags " -Wall -Wno-unused-result -fexceptions")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   string(APPEND CMAKE_C_FLAGS " ${_ocpn_cflags}")

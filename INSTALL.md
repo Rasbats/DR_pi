@@ -1,7 +1,12 @@
 ## INSTALL: Building Plugins generic README.
 
+<<<<<<< HEAD
 Install build dependencies as described in the
 [wiki](https://github.com/Rasbats/managed_plugins/wiki/Local-Build)
+=======
+Install build dependencies as described in the 
+[manual](https://opencpn-manuals.github.io/main/AlternativeWorkflow/Local-Build.html)
+>>>>>>> shipdriver/master
 Then clone this repository, enter it and make
 `rm -rf build; mkdir build; cd build`.
 
@@ -22,9 +27,14 @@ has been removed in the 5.6.0 cycle.
 
 #### Building for Android
 
+<<<<<<< HEAD
 Builds for android requires an ndk installation. By default, the location
 /opt/android/ndk is used. If unsuitable, use the environment variable
 `NDK_HOME` to define the full path to the ndk installation
+=======
+Builds for android requires an ndk installation and an updated cmake,
+see manual (above).
+>>>>>>> shipdriver/master
 
 To build an android aarch64 tarball:
 
