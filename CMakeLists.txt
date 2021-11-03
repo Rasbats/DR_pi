@@ -61,7 +61,6 @@ file(GLOB FLATPAK_MANIFEST
 )
 include(Targets)
 create_targets(${FLATPAK_MANIFEST})
-)
 if ("${BUILD_TYPE}" STREQUAL "")
   return ()
 endif ()
