@@ -31,8 +31,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-<<<<<<< HEAD
-=======
 
 # Set up option NPROC: Number of processors used when compiling.
 if (DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
@@ -68,7 +66,6 @@ set(OCPN_NPROC ${_nproc}
 message(STATUS "Build uses ${OCPN_NPROC} processors")
 
 
->>>>>>> shipdriver/master
 # Set up OCPN_TARGET_TUPLE and update QT_ANDROID accordingly
 set(OCPN_TARGET_TUPLE "" CACHE STRING
   "Target spec: \"platform;version;arch\""

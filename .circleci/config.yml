@@ -31,10 +31,7 @@ jobs:
     resource_class: arm.medium
     environment:
       - OCPN_TARGET: flatpak-arm64
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     parameters:
       cache-key:
         type: string
@@ -51,10 +48,7 @@ jobs:
     resource_class: arm.medium
     environment:
       - OCPN_TARGET: flatpak-arm64
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     parameters:
       cache-key:
         type: string
@@ -66,10 +60,7 @@ jobs:
       image: ubuntu-2004:202010-01
     environment:
       - OCPN_TARGET: flatpak
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
       - BUILD_1808: "true"
     parameters:
       cache-key:
@@ -82,10 +73,7 @@ jobs:
       image: ubuntu-2004:202010-01
     environment:
       - OCPN_TARGET: flatpak
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     parameters:
       cache-key:
         type: string
@@ -98,10 +86,7 @@ jobs:
       xcode: "12.5.1"
     environment:
       - OCPN_TARGET: macos
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     steps:
       - checkout
       - run: ci/circleci-build-macos.sh
@@ -114,10 +99,7 @@ jobs:
       - image: circleci/buildpack-deps:xenial-scm
     environment:
       - OCPN_TARGET: xenial
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
       - USE_DEADSNAKES_PY37: 1
     <<: *debian-steps
 
@@ -126,10 +108,7 @@ jobs:
       - image: circleci/buildpack-deps:bionic-scm
     environment:
       - OCPN_TARGET: bionic
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     <<: *debian-steps
 
   build-bionic-gtk3:
@@ -137,10 +116,7 @@ jobs:
       - image: circleci/buildpack-deps:bionic-scm
     environment:
       - BUILD_GTK3: true
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
       - OCPN_TARGET: bionic-gtk3
     <<: *debian-steps
 
@@ -149,10 +125,7 @@ jobs:
       - image: circleci/buildpack-deps:focal-scm
     environment:
       - OCPN_TARGET: focal
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     <<: *debian-steps
 
   build-buster:
@@ -160,10 +133,7 @@ jobs:
       - image: circleci/buildpack-deps:buster-scm
     environment:
       - OCPN_TARGET: buster
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     <<: *debian-steps
 
   build-android-arm64:
@@ -171,10 +141,7 @@ jobs:
       - image: circleci/android:api-28-ndk
     environment:
       - OCPN_TARGET: android-aarch64
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     steps:
       - checkout
       - run: ci/circleci-build-android.sh
@@ -186,10 +153,7 @@ jobs:
       - image: circleci/android:api-28-ndk
     environment:
       - OCPN_TARGET: android-armhf
-<<<<<<< HEAD
-=======
       - CMAKE_BUILD_PARALLEL_LEVEL: 2
->>>>>>> shipdriver/master
     steps:
       - checkout
       - run: ci/circleci-build-android.sh

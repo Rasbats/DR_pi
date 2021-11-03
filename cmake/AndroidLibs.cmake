@@ -13,10 +13,6 @@
 # (at your option) any later version.
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> shipdriver/master
 cmake_minimum_required(VERSION 3.1)
 
 find_package(Gettext REQUIRED)
@@ -83,10 +79,6 @@ else ()
 endif ()
 
 include_directories(
-<<<<<<< HEAD
-  ${PROJECT_SOURCE_DIR}/libs/AndroidHeaders/include
-=======
->>>>>>> shipdriver/master
   ${_qt_include}
   ${_qt_include}/QtWidgets
   ${_qt_include}/QtCore

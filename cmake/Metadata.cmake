@@ -86,11 +86,7 @@ if ("${_git_tag}" STREQUAL "")
   endif ()
 else ()
   string(TOLOWER  ${_git_tag}  _lc_git_tag)
-<<<<<<< HEAD
-  if (_lc_git_tag MATCHES "beta")
-=======
   if (_lc_git_tag MATCHES "beta|rc")
->>>>>>> shipdriver/master
     set(pkg_repo "$ENV{CLOUDSMITH_BETA_REPO}")
     if ("${pkg_repo}" STREQUAL "")
       set(pkg_repo ${OCPN_BETA_REPO})
