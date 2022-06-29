@@ -25,17 +25,19 @@ else ()
   message(STATUS "Configuring")
 endif ()
 
+# -------- Plugin setup ----------
+#
 include(Plugin.cmake)
 
 # -------- Setup completed, build the plugin --------
 #
-project(DR_pi VERSION ${PKG_VERSION})
+project(${PKG_NAME} VERSION ${PKG_VERSION})
 include(PluginCompiler)
 
-add_library(${CMAKE_PROJECT_NAME} SHARED ${SRC})
+add_library(${CMAKE_PROJECT_NAME} SHARED EXCLUDE_FROM_ALL ${SRC})
 include_directories(BEFORE ${CMAKE_BINARY_DIR}/include)
 
-add_subdirectory("libs/${PKG_API_LIB}")
+add_subdirectory("opencpn-libs/${PKG_API_LIB}")
 target_link_libraries(${CMAKE_PROJECT_NAME} ocpn::api)
 
 set(VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -52,15 +54,20 @@ if (COMMAND late_init)
   late_init()
 endif ()
 
+# Configure the flatpak manifest
+file(
+  GLOB manifest ${PROJECT_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.*.yaml
+)
+include(ConfigureManifest)
+configure_manifest(${manifest} _new_manifest)
+
 # Set up targets. Targets sets up new targets with BUILD_TYPE set to
 # 'flatpak', 'android' or 'tarball'. The initial call without BUILD_TYPE ends
 # here.
 #
-file(GLOB FLATPAK_MANIFEST
-  ${PROJECT_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.*.yaml
-)
 include(Targets)
-create_targets(${FLATPAK_MANIFEST})
+create_targets(${_new_manifest})
+
 if ("${BUILD_TYPE}" STREQUAL "")
   return ()
 endif ()
