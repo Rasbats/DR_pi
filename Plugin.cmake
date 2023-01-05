@@ -34,7 +34,7 @@ option(DR_USE_SVG "Use SVG graphics" ON)
 # -------  Plugin setup --------
 #
 set(PKG_NAME DR_pi)
-set(PKG_VERSION  4.0.0)
+set(PKG_VERSION  5.0.0)
 set(PKG_PRERELEASE "")  # Empty, or a tag like 'beta'
 
 set(DISPLAY_NAME DR)    # Dialogs, installer artifacts, ...
