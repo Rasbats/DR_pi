@@ -35,6 +35,8 @@
 #include "wx/dir.h"
 #include <list>
 #include <cmath>
+#include <wx/app.h>
+
 
 #ifdef __OCPN__ANDROID__
 wxWindow *g_Window;
@@ -45,7 +47,8 @@ wxWindow *g_Window;
 Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 	: m_Dialog(parent)
 {
-	this->Fit();
+    
+  this->Fit();
 	dbg = false; //for debug output set to true
 	
 	pPlugIn = ppi;

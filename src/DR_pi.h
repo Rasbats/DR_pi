@@ -42,6 +42,7 @@
 #include "DRgui.h"
 
 #include "config.h"
+#include <wx/app.h>
 
 
 //----------------------------------------------------------------------------------------------------------
@@ -75,6 +76,7 @@ public:
       int GetToolbarToolCount(void);
       void OnToolbarToolCallback(int id);
      
+      wxFrame* frame;
 
 //    Optional plugin overrides
       void SetColorScheme(PI_ColorScheme cs);
