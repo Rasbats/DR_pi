@@ -90,9 +90,9 @@ void Dlg::OnMouseEvent( wxMouseEvent& event )
         
         g_Window->Move(x, y);
     }
-
+    
     if (m_binResize) {
-        
+
         wxSize currentSize = g_window.GetSize();
         double aRatio = (double)currentSize.y / (double)currentSize.x;
 
@@ -131,7 +131,11 @@ void Dlg::OnMouseEvent( wxMouseEvent& event )
                 g_window.SetSize(dragSize);
             }
         }
+    }
+}
 #endif
+
+
 
 void Dlg::OnContextMenu(wxContextMenuEvent& event)
 {
