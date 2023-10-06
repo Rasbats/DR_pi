@@ -15,10 +15,8 @@
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/textctrl.h>
-#include <wx/sizer.h>
-#include <wx/panel.h>
 #include <wx/choice.h>
+#include <wx/textctrl.h>
 #include <wx/button.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
@@ -38,20 +36,19 @@ class m_Dialog : public wxFrame
 
 	protected:
 		wxStaticText* m_staticText1511;
-		wxPanel* m_panel1;
-		wxStaticText* m_staticText32111112;
 		wxButton* m_button3111;
+		wxStaticText* m_staticText32111112;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
-		wxTextCtrl* m_Speed_PS;
 		wxChoice* m_Nship;
 		wxTextCtrl* m_Route;
+		wxTextCtrl* m_Speed_PS;
 
-		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,433 ), long style = wxDEFAULT_FRAME_STYLE|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
+		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Test"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,433 ), long style = wxCAPTION|wxDEFAULT_FRAME_STYLE|wxFRAME_FLOAT_ON_PARENT|wxMAXIMIZE_BOX|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
 		wxAuiManager m_mgr;
 
 		~m_Dialog();
