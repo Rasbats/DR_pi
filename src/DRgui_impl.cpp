@@ -58,6 +58,12 @@ Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 	SetIcon(icon);
 
 #ifdef __ANDROID__
+
+  m_position_menu_id = AddCanvasContextMenuItem(
+            new wxMenuItem(
+                &dummy_menu, ID_DASH_RESIZE, _("Resize")),
+            this);
+        SetCanvasContextMenuItemViz(m_position_menu_id, true);
     g_Window = this;
     GetHandle()->setStyleSheet( qtStyleSheet);
     Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
@@ -172,6 +178,7 @@ void Dlg::OnContextMenuSelect(wxCommandEvent & event)
                             }
                 */
                 m_binResize = true;
+        wxMessageBox("here");
 
                 return;
     }
