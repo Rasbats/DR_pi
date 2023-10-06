@@ -87,6 +87,9 @@ public:
     void OnEvtPanGesture(wxQT_PanGestureEvent& event);
 #endif
 
+#ifdef __OCPN__ANDROID__
+    wxWindow* g_Window;
+#endif
     wxString rte_start;
     wxString rte_end;
 

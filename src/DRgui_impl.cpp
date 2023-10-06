@@ -65,9 +65,7 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
     m_binResize = false;
     m_binPinch = false;
 
-#ifdef __OCPN__ANDROID__
-    wxWindow* g_Window;
-#endif
+
 
 #ifdef __OCPN__ANDROID__
     g_Window = this;
