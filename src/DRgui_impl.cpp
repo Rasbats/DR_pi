@@ -89,8 +89,83 @@ void Dlg::OnMouseEvent( wxMouseEvent& event )
         
         g_Window->Move(x, y);
     }
-}
+
+    if (m_binResize) {
+        
+        wxSize currentSize = g_window.GetSize();
+        double aRatio = (double)currentSize.y / (double)currentSize.x;
+
+        wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+        wxPoint par_pos = wxPoint(g_mouse_pos_screen.x, g_mouse_pos_screen.y);
+
+        if (event.LeftDown()) {
+            m_resizeStartPoint = event.GetPosition();
+            m_resizeStartSize = currentSize;
+            m_binResize2 = true;
+        }
+
+        if (m_binResize2) {
+            if (event.Dragging()) {
+                wxPoint p = event.GetPosition();
+
+                wxSize dragSize = m_resizeStartSize;
+
+                dragSize.y += p.y - m_resizeStartPoint.y;
+                dragSize.x += p.x - m_resizeStartPoint.x;
+                ;
+
+                if ((par_pos.y + dragSize.y) > par_size.y)
+                    dragSize.y = par_size.y - par_pos.y;
+
+                if ((par_pos.x + dragSize.x) > par_size.x)
+                    dragSize.x = par_size.x - par_pos.x;
+
+                /// vertical
+                // dragSize.x = dragSize.y / aRatio;
+
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
+
+                g_window.SetSize(dragSize);
+            }
+        }
 #endif
+
+void Dlg::OnContextMenu(wxContextMenuEvent& event)
+{
+    wxMenu* contextMenu = new wxMenu();
+
+#ifdef __WXQT__
+    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
+
+    // add stuff
+
+    wxMenuItem* item2
+        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
+    item2->SetFont(*pf);
+    contextMenu->Append(item2);
+
+#endif
+}
+
+void Dlg::OnContextMenuSelect(wxCommandEvent & event)
+{
+
+    switch (event.GetId()) {
+    case ID_DASH_RESIZE: {
+                /*
+                            for( unsigned int i=0; i<m_ArrayOfInstrument.size();
+                   i++ ) { DashboardInstrument* inst =
+                   m_ArrayOfInstrument.Item(i)->m_pInstrument; inst->Hide();
+                            }
+                */
+                m_binResize = true;
+
+                return;
+    }
+    }
+}
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype){
 //add point
