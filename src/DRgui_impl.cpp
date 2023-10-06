@@ -47,7 +47,7 @@ wxWindow *g_Window;
 Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 	: m_Dialog(parent)
 {
-    
+  
   this->Fit();
 	dbg = false; //for debug output set to true
 	
@@ -63,13 +63,32 @@ Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 #ifdef __OCPN__ANDROID__
     g_Window = this;
     GetHandle()->setStyleSheet( qtStyleSheet);
-    Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
+    //Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
 #endif
-
 #ifdef __OCPN__ANDROID__
-    wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
+    Connect(
+        wxEVT_LEFT_DOWN, wxMouseEventHandler(Dlg::OnMouseEvent));
+    Connect(wxEVT_LEFT_UP, wxMouseEventHandler(Dlg::OnMouseEvent));
+    Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
+
+    GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
+    GetHandle()->grabGesture(Qt::PinchGesture);
+    GetHandle()->grabGesture(Qt::PanGesture);
+
+    Connect(wxEVT_QT_PINCHGESTURE,
+        (wxObjectEventFunction)(wxEventFunction)&Dlg::
+            OnEvtPinchGesture,
+        NULL, this);
+    Connect(wxEVT_QT_PANGESTURE,
+        (wxObjectEventFunction)(wxEventFunction)&Dlg::
+            OnEvtPanGesture,
+        NULL, this);
+#endif
+#ifdef __OCPN__ANDROID__
+    wxAuiPaneInfo& pane = m_mgr->GetPane(this);
     pane.Dockable(false);
 #endif
+
 	
 }
 
@@ -97,7 +116,7 @@ void Dlg::OnEvtPinchGesture(wxQT_PinchGestureEvent& event)
         total_zoom_val
             = 1.0 - ((1.0 - event.GetTotalScaleFactor()) * zoom_gain);
 
-    wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
+    wxAuiPaneInfo& pane = m_mgr->GetPane(this);
 
     wxSize currentSize = wxSize(pane.floating_size.x, pane.floating_size.y);
     double aRatio = (double)currentSize.y / (double)currentSize.x;
@@ -127,7 +146,7 @@ void Dlg::OnEvtPinchGesture(wxQT_PinchGestureEvent& event)
         currentSize.y = wxMax(currentSize.y, 150);
 
         pane.FloatingSize(currentSize);
-        m_pauimgr->Update();
+        m_mgr->Update();
 
         break;
 
@@ -154,29 +173,14 @@ void Dlg::OnEvtPinchGesture(wxQT_PinchGestureEvent& event)
         //  Try a manual layout of the window, to estimate a good primary size..
 
         // vertical
-        if (itemBoxSizer->GetOrientation() == wxVERTICAL) {
-            int total_y = 0;
-            for (unsigned int i = 0; i < m_ArrayOfInstrument.size(); i++) {
-                DashboardInstrument* inst
-                    = m_ArrayOfInstrument.Item(i)->m_pInstrument;
-                wxSize is = inst->GetSize(
-                    itemBoxSizer->GetOrientation(), currentSize);
-                total_y += is.y;
-            }
-
-            currentSize.y = total_y;
-        }
+        
 
         pane.FloatingSize(currentSize);
 
         // Reshow the window
-        for (unsigned int i = 0; i < m_ArrayOfInstrument.size(); i++) {
-            DashboardInstrument* inst
-                = m_ArrayOfInstrument.Item(i)->m_pInstrument;
-            inst->Show();
-        }
+       
 
-        m_pauimgr->Update();
+        m_mgr->Update();
 
         m_binPinch = false;
         m_binResize = false;
@@ -240,9 +244,9 @@ void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event)
             if ((par_pos.x + mySize.x) > par_size.x)
                 par_pos.x = par_size.x - mySize.x;
 
-            wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
+            wxAuiPaneInfo& pane = m_mgr->GetPane(this);
             pane.FloatingPosition(par_pos).Float();
-            m_pauimgr->Update();
+            m_mgr->Update();
         }
         break;
 
@@ -267,7 +271,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         return;
 
     if (m_binResize) {
-        wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
+        wxAuiPaneInfo& pane = m_mgr->GetPane(this);
         wxSize currentSize = wxSize(pane.floating_size.x, pane.floating_size.y);
         double aRatio = (double)currentSize.y / (double)currentSize.x;
 
@@ -304,7 +308,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 dragSize.y = wxMax(dragSize.y, 150);
 
                 pane.FloatingSize(dragSize);
-                m_pauimgr->Update();
+                m_mgr->Update();
             }
 
             if (event.LeftUp()) {
@@ -333,7 +337,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                                 }
                 */
                 pane.FloatingSize(dragSize);
-                m_pauimgr->Update();
+                m_mgr->Update();
 
                 m_binResize = false;
                 m_binResize2 = false;

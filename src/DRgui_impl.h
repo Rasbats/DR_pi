@@ -80,7 +80,17 @@ public:
     wxString rte_start;
     wxString rte_end;
 
+    bool m_binPinch;
+    bool m_binPan;
+
+    wxPoint m_resizeStartPoint;
+    wxSize m_resizeStartSize;
+    bool m_binResize;
+    bool m_binResize2;
+
+
 private:
+
     void OnClose(wxCloseEvent& event);
     double lat1, lon1, lat2, lon2;
     bool error_found;
