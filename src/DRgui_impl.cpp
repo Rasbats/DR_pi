@@ -70,7 +70,7 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
     // add stuff
 
     wxMenuItem* item2
-        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."), this);
+        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
     item2->SetFont(*pf);
     contextMenu->Append(item2);
 
