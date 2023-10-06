@@ -48,7 +48,7 @@ class m_Dialog : public wxFrame
 		wxTextCtrl* m_Route;
 		wxTextCtrl* m_Speed_PS;
 
-		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Test"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,433 ), long style = wxCAPTION|wxDEFAULT_FRAME_STYLE|wxFRAME_FLOAT_ON_PARENT|wxMAXIMIZE_BOX|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
+		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Test"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxDEFAULT_FRAME_STYLE|wxFRAME_FLOAT_ON_PARENT|wxMAXIMIZE_BOX|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
 		wxAuiManager m_mgr;
 
 		~m_Dialog();
