@@ -89,7 +89,7 @@ public:
     wxSize m_resizeStartSize;
     bool m_binResize;
     bool m_binResize2;
-
+    void OnContextMenu(wxContextMenuEvent& event);
 
 private:
     wxAuiManager* m_pauimgr;

@@ -70,12 +70,12 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 #ifdef __OCPN__ANDROID__
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
-    // Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
+    Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
 #endif
 #ifdef __OCPN__ANDROID__
     Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Dlg::OnMouseEvent));
     Connect(wxEVT_LEFT_UP, wxMouseEventHandler(Dlg::OnMouseEvent));
-    Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
+    //Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
 
     GetHandle()->setAttribute(Qt::WA_AcceptTouchEvents);
     GetHandle()->grabGesture(Qt::PinchGesture);
@@ -122,18 +122,24 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 #endif
 
 
+void Dlg::OnContextMenu(wxContextMenuEvent& event)
+{
+    wxMenu* contextMenu = new wxMenu();
+
 #ifdef __WXQT__
-wxFont* pf = OCPNGetFont(_T("Menu"), 0);
+    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
 
-// add stuff
-wxMenuItem* item1
-    = new wxMenuItem(contextMenu, ID_DASH_PREFS, _("Preferences..."));
-item1->SetFont(*pf);
-contextMenu->Append(item1);
+    // add stuff
+    wxMenuItem* item1
+        = new wxMenuItem(contextMenu, ID_DASH_PREFS, _("Preferences..."));
+    item1->SetFont(*pf);
+    contextMenu->Append(item1);
 
-wxMenuItem* item2 = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
-item2->SetFont(*pf);
-contextMenu->Append(item2);
+    wxMenuItem* item2
+        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
+    item2->SetFont(*pf);
+    contextMenu->Append(item2);
+
 #endif
 
 #ifdef __OCPN__ANDROID__
