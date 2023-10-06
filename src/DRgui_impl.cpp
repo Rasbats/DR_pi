@@ -96,7 +96,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     g_mouse_pos_screen = ClientToScreen(event.GetPosition());
 
-    if (event.Dragging()) {
+    if (event.LeftDown()) {
         int x
             = wxMax(0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
         int y
