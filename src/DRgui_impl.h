@@ -41,6 +41,8 @@
 #include <list>
 #include <vector>
 
+#include "qtstylesheet.h"
+
 enum {
     ID_DASH_RESIZE,
 };
