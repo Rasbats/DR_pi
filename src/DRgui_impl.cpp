@@ -96,6 +96,32 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
 Dlg::~Dlg() { }
 
+#ifdef __ANDROID__
+wxPoint g_startPos;
+wxPoint g_startMouse;
+wxPoint g_mouse_pos_screen;
+
+void Dlg::OnMouseEvent(wxMouseEvent& event)
+{
+    g_mouse_pos_screen = ClientToScreen(event.GetPosition());
+
+    if (event.Dragging()) {
+        int x
+            = wxMax(0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
+        int y
+            = wxMax(0, g_startPos.y + (g_mouse_pos_screen.y - g_startMouse.y));
+        int xmax = ::wxGetDisplaySize().x - GetSize().x;
+        x = wxMin(x, xmax);
+        int ymax = ::wxGetDisplaySize().y
+            - (GetSize().y * 2); // Some fluff at the bottom
+        y = wxMin(y, ymax);
+
+        g_Window->Move(x, y);
+    }
+}
+#endif
+
+
 #ifdef __WXQT__
 wxFont* pf = OCPNGetFont(_T("Menu"), 0);
 
@@ -276,86 +302,7 @@ void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event)
     }
 }
 
-void Dlg::OnMouseEvent(wxMouseEvent& event)
-{
-    if (m_binPinch)
-        return;
 
-    if (m_binResize) {
-        wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
-        wxSize currentSize = wxSize(pane.floating_size.x, pane.floating_size.y);
-        double aRatio = (double)currentSize.y / (double)currentSize.x;
-
-        wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-        wxPoint par_pos = wxPoint(pane.floating_pos.x, pane.floating_pos.y);
-
-        if (event.LeftDown()) {
-            m_resizeStartPoint = event.GetPosition();
-            m_resizeStartSize = currentSize;
-            m_binResize2 = true;
-        }
-
-        if (m_binResize2) {
-            if (event.Dragging()) {
-                wxPoint p = event.GetPosition();
-
-                wxSize dragSize = m_resizeStartSize;
-
-                dragSize.y += p.y - m_resizeStartPoint.y;
-                dragSize.x += p.x - m_resizeStartPoint.x;
-                ;
-
-                if ((par_pos.y + dragSize.y) > par_size.y)
-                    dragSize.y = par_size.y - par_pos.y;
-
-                if ((par_pos.x + dragSize.x) > par_size.x)
-                    dragSize.x = par_size.x - par_pos.x;
-
-                /// vertical
-                // dragSize.x = dragSize.y / aRatio;
-
-                // not too small
-                dragSize.x = wxMax(dragSize.x, 150);
-                dragSize.y = wxMax(dragSize.y, 150);
-
-                pane.FloatingSize(dragSize);
-                m_pauimgr->Update();
-            }
-
-            if (event.LeftUp()) {
-                wxPoint p = event.GetPosition();
-
-                wxSize dragSize = m_resizeStartSize;
-
-                dragSize.y += p.y - m_resizeStartPoint.y;
-                dragSize.x += p.x - m_resizeStartPoint.x;
-                ;
-
-                if ((par_pos.y + dragSize.y) > par_size.y)
-                    dragSize.y = par_size.y - par_pos.y;
-
-                if ((par_pos.x + dragSize.x) > par_size.x)
-                    dragSize.x = par_size.x - par_pos.x;
-
-                // not too small
-                dragSize.x = wxMax(dragSize.x, 150);
-                dragSize.y = wxMax(dragSize.y, 150);
-                /*
-                                for( unsigned int i=0;
-                   i<m_ArrayOfInstrument.size(); i++ ) { DashboardInstrument*
-                   inst = m_ArrayOfInstrument.Item(i)->m_pInstrument;
-                   inst->Show();
-                                }
-                */
-                pane.FloatingSize(dragSize);
-                m_pauimgr->Update();
-
-                m_binResize = false;
-                m_binResize2 = false;
-            }
-        }
-    }
-}
 #endif
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,

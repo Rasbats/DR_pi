@@ -42,6 +42,8 @@
 #include <vector>
 #include <wx/app.h>
 #include <wx/aui/aui.h>
+#include <wx/frame.h>
+#include <wx/menuitem.h>
 
 #ifdef __OCPN__ANDROID__
 #include "qtstylesheet.h"
