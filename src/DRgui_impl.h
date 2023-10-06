@@ -83,6 +83,7 @@ public:
     bool m_binResize;
     void OnContextMenu(wxContextMenuEvent& event);
     void OnContextMenuSelect(wxCommandEvent& event);
+    int m_position_menu_id;
 
 private:
     void OnClose(wxCloseEvent& event);

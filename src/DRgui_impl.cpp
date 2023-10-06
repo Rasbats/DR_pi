@@ -36,7 +36,7 @@
 #include <list>
 #include <cmath>
 
-#ifdef __OCPN__ANDROID__
+#ifdef __ANDROID__
 wxWindow *g_Window;
 #endif
 
@@ -57,10 +57,11 @@ Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
 	wxIcon icon(blank_name, wxBITMAP_TYPE_ICO);
 	SetIcon(icon);
 
-#ifdef __OCPN__ANDROID__
+#ifdef __ANDROID__
     g_Window = this;
     GetHandle()->setStyleSheet( qtStyleSheet);
     Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
+
 #endif
 	
 }
@@ -70,7 +71,7 @@ Dlg::~Dlg()
 	
 }
 
-#ifdef __OCPN__ANDROID__ 
+#ifdef __ANDROID__ 
 wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
@@ -136,7 +137,7 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
 {
     wxMenu* contextMenu = new wxMenu();
 
-#ifdef __WXQT__
+#ifdef __ANDROID__ 
     wxFont* pf = OCPNGetFont(_T("Menu"), 0);
 
     // add stuff
