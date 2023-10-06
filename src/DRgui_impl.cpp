@@ -61,6 +61,11 @@ Dlg::Dlg(wxWindow *parent, DR_pi *ppi)
     g_Window = this;
     GetHandle()->setStyleSheet( qtStyleSheet);
     Connect( wxEVT_MOTION, wxMouseEventHandler( Dlg::OnMouseEvent ) );
+    Connect(wxEVT_CONTEXT_MENU,
+        wxContextMenuEventHandler(Dlg::OnContextMenu), NULL, this);
+    Connect(wxEVT_COMMAND_MENU_SELECTED,
+        wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL,
+        this);
 
 #endif
 	
