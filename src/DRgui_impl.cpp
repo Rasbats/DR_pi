@@ -37,6 +37,9 @@
 #include <wx/progdlg.h>
 #include <wx/wx.h>
 
+#ifdef __ANDROID__
+wxWindow* g_Window;
+#endif
 
 
 #define FAIL(X)                                                                \
