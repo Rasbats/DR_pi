@@ -96,6 +96,20 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
 Dlg::~Dlg() { }
 
+#ifdef __WXQT__
+wxFont* pf = OCPNGetFont(_T("Menu"), 0);
+
+// add stuff
+wxMenuItem* item1
+    = new wxMenuItem(contextMenu, ID_DASH_PREFS, _("Preferences..."));
+item1->SetFont(*pf);
+contextMenu->Append(item1);
+
+wxMenuItem* item2 = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
+item2->SetFont(*pf);
+contextMenu->Append(item2);
+#endif
+
 #ifdef __OCPN__ANDROID__
 void Dlg::OnEvtPinchGesture(wxQT_PinchGestureEvent& event)
 {
