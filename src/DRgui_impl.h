@@ -90,6 +90,7 @@ public:
 
 
 private:
+    wxAuiManager* m_pauimgr;
 
     void OnClose(wxCloseEvent& event);
     double lat1, lon1, lat2, lon2;
