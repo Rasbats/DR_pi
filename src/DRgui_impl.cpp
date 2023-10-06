@@ -141,7 +141,7 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
     contextMenu->Append(item2);
 
 #endif
-
+}
 #ifdef __OCPN__ANDROID__
 void Dlg::OnEvtPinchGesture(wxQT_PinchGestureEvent& event)
 {
