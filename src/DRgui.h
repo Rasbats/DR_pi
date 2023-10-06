@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
+// C++ code generated with wxFormBuilder (version Oct 26 2018)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -15,14 +15,15 @@
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/choice.h>
 #include <wx/textctrl.h>
-#include <wx/button.h>
+#include <wx/sizer.h>
+#include <wx/choice.h>
+#include <wx/statline.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
-#include <wx/frame.h>
-#include <wx/aui/aui.h>
+#include <wx/button.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -30,27 +31,32 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Class m_Dialog
 ///////////////////////////////////////////////////////////////////////////////
-class m_Dialog : public wxFrame
+class m_Dialog : public wxDialog
 {
 	private:
 
 	protected:
 		wxStaticText* m_staticText1511;
-		wxButton* m_button3111;
 		wxStaticText* m_staticText32111112;
+		wxStaticText* m_staticText33111111;
+		wxStaticText* m_staticText32111111;
+		wxStaticText* m_staticText3311111;
+		wxStaticText* m_staticText7;
+		wxStaticLine* m_staticline1;
+		wxButton* m_button3111;
+		wxStaticText* m_staticText71;
 
-		// Virtual event handlers, override them in your derived class
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
+		wxTextCtrl* m_Speed_PS;
 		wxChoice* m_Nship;
 		wxTextCtrl* m_Route;
-		wxTextCtrl* m_Speed_PS;
 
-		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Test"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxDEFAULT_FRAME_STYLE|wxFRAME_FLOAT_ON_PARENT|wxMAXIMIZE_BOX|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
-		wxAuiManager m_mgr;
-
+		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("DR"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
 		~m_Dialog();
 
 };
