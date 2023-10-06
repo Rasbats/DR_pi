@@ -41,10 +41,6 @@
 #include <list>
 #include <vector>
 
-#ifdef __OCPN__ANDROID__
-#include "qtstylesheet.h"
-#endif
-
 enum {
     ID_DASH_RESIZE,
 };
@@ -64,7 +60,7 @@ public:
     wxWindow* pParent;
     DR_pi* pPlugIn;
 
-#ifdef __OCPN__ANDROID__
+#ifdef __ANDROID__
     void OnMouseEvent(wxMouseEvent& event);
 #endif
 
