@@ -49,6 +49,14 @@
 #include "qtstylesheet.h"
 #endif
 
+enum {
+    ID_DASH_PREFS = 999,
+    ID_DASH_VERTICAL,
+    ID_DASH_HORIZONTAL,
+    ID_DASH_RESIZE,
+    ID_DASH_UNDOCK
+};
+
 using namespace std;
 
 class DR_pi;
