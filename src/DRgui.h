@@ -19,8 +19,8 @@
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
-#include <wx/textctrl.h>
 #include <wx/sizer.h>
+#include <wx/textctrl.h>
 #include <wx/choice.h>
 #include <wx/statline.h>
 #include <wx/dialog.h>
