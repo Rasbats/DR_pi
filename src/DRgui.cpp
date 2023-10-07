@@ -16,14 +16,14 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	wxBoxSizer* bSizer9111;
 	bSizer9111 = new wxBoxSizer( wxVERTICAL );
 
-	m_button2 = new wxButton( this, wxID_ANY, wxT("Expand"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer9111->Add( m_button2, 0, wxALL|wxEXPAND, 5 );
-
 	m_staticText1511 = new wxStaticText( this, wxID_ANY, wxT("DR Options"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1511->Wrap( -1 );
 	m_staticText1511->SetFont( wxFont( 20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial") ) );
 
 	bSizer9111->Add( m_staticText1511, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+	m_button2 = new wxButton( this, wxID_ANY, wxT("Expand"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer9111->Add( m_button2, 0, wxALL|wxEXPAND, 5 );
 
 	wxBoxSizer* bSizer1311;
 	bSizer1311 = new wxBoxSizer( wxVERTICAL );
