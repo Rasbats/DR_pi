@@ -67,20 +67,9 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     wxFont* pf = OCPNGetFont(_T("Menu"), 0);
 
-    // add stuff
-
-    wxMenuItem* item2
-        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
-    item2->SetFont(*pf);
-    contextMenu->Append(item2);
-
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
     Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
-    Connect(wxEVT_CONTEXT_MENU, wxContextMenuEventHandler(Dlg::OnContextMenu),
-        NULL, this);
-    Connect(wxEVT_COMMAND_MENU_SELECTED,
-        wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL, this);
 
 #endif
 }
@@ -94,7 +83,7 @@ wxPoint g_mouse_pos_screen;
 
 void Dlg::OnExpand(wxCommandEvent& event) {
 
-  g_Window->Move(500, 500); 
+  g_Window->Move(500, 900); 
 
 }
 
