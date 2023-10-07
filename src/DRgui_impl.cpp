@@ -92,6 +92,12 @@ wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
+void Dlg::OnExpand(wxCommandEvent& event) {
+
+  g_Window->Move(500, 500); 
+
+}
+
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     g_mouse_pos_screen = ClientToScreen(event.GetPosition());

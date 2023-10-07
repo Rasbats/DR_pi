@@ -63,6 +63,7 @@ public:
     DR_pi* pPlugIn;
 
 #ifdef __ANDROID__
+    void OnExpand(wxCommandEvent& event);
     void OnMouseEvent(wxMouseEvent& event);
 #endif
 
