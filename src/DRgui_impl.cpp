@@ -178,6 +178,8 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
     contextMenu->Append(item2);
 
 #endif
+    PopupMenu(contextMenu);
+    delete contextMenu;
 }
 
 void Dlg::OnContextMenuSelect(wxCommandEvent& event)
