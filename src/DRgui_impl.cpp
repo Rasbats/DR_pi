@@ -89,21 +89,42 @@ void Dlg::OnExpand(wxCommandEvent& event) {
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
-    m_startPos = ClientToScreen(event.GetPosition());
-    m_startMouse = event.GetCursorPos(); // g_mouse_pos_screen;
+    
+    
+  wxSize currentSize = g_Window->GetSize();
+    m_resizeStartPoint = event.GetPosition();
+    m_resizeStartSize = currentSize;
+    wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+    wxPoint par_pos = g_Window->GetPosition());
+
 
     if (event.Dragging()) {
        
-        wxPoint pos = ClientToScreen(event.GetPosition());
-        int x = wxMax(0, pos.x + m_startPos.x - m_startMouse.x);
-        int y = wxMax(0, pos.y + m_startPos.y - m_startMouse.y);
-        int xmax = ::wxGetDisplaySize().x - GetSize().x;
-        x = wxMin(x, xmax);
-        int ymax
-            = ::wxGetDisplaySize().y - GetSize().y; // Some fluff at the bottom
-        y = wxMin(y, ymax);
+        wxPoint p = event.GetPosition();
 
-        Move(x, y);
+        wxSize dragSize = m_resizeStartSize;
+
+        dragSize.y += p.y - m_resizeStartPoint.y;
+        dragSize.x += p.x - m_resizeStartPoint.x;
+        ;
+
+        if ((par_pos.y + dragSize.y) > par_size.y)
+            dragSize.y = par_size.y - par_pos.y;
+
+        if ((par_pos.x + dragSize.x) > par_size.x)
+            dragSize.x = par_size.x - par_pos.x;
+
+        /// vertical
+        // dragSize.x = dragSize.y / aRatio;
+
+        // not too small
+        dragSize.x = wxMax(dragSize.x, 150);
+        dragSize.y = wxMax(dragSize.y, 150);
+
+        g_Window->SetSize(dragSize);
+
+
+        //Move(x, y);
     }
     /*
    if (m_binResize) {

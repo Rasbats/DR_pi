@@ -42,6 +42,7 @@
 #include <vector>
 
 #include "qtstylesheet.h"
+#include <wx/graphics.h>
 
 enum {
     ID_DASH_RESIZE,
