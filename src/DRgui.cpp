@@ -107,6 +107,12 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	this->SetSizer( bSizer9111 );
 	this->Layout();
 	bSizer9111->Fit( this );
+	m_menubar1 = new wxMenuBar( 0 );
+	m_menu1 = new wxMenu();
+	m_menubar1->Append( m_menu1, wxT("Expand") );
+
+	this->SetMenuBar( m_menubar1 );
+
 
 	this->Centre( wxBOTH );
 

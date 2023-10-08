@@ -23,6 +23,7 @@
 #include <wx/textctrl.h>
 #include <wx/choice.h>
 #include <wx/statline.h>
+#include <wx/menu.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -46,6 +47,8 @@ class m_Dialog : public wxFrame
 		wxStaticLine* m_staticline1;
 		wxButton* m_button3111;
 		wxStaticText* m_staticText71;
+		wxMenuBar* m_menubar1;
+		wxMenu* m_menu1;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void OnExpand( wxCommandEvent& event ) { event.Skip(); }
