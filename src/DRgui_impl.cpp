@@ -172,7 +172,7 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
         = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
     item2->SetFont(*pf);
     contextMenu->Append(item2);
-    pPlugIn->PopulateContextMenu(contextMenu);
+    
 
 
 #endif
