@@ -61,18 +61,16 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
     wxIcon icon(blank_name, wxBITMAP_TYPE_ICO);
     SetIcon(icon);
 
+    Connect(wxEVT_CONTEXT_MENU,
+        wxContextMenuEventHandler(Dlg::OnContextMenu), NULL, this);
+    Connect(wxEVT_COMMAND_MENU_SELECTED,
+        wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL,
+        this);
+
 #ifdef __ANDROID__
-
-    wxMenu* contextMenu = new wxMenu();
-
-    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
-
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
     Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
-
-    Connect(wxEVT_CONTEXT_MENU,
-        wxContextMenuEventHandler(Dlg::OnContextMenu), NULL, this);
 
 #endif
 }
@@ -88,21 +86,6 @@ void Dlg::OnExpand(wxCommandEvent& event) {
 
   g_Window->SetSize(50,50); 
 
-}
-
-void Dlg::OnContextMenu(wxContextMenuEvent& event)
-{
-    wxMenu* contextMenu = new wxMenu();
-
-#ifdef __WXQT__
-    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
-
-    // add stuff
-    wxMenuItem* item1 = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("DR..."));
-    item1->SetFont(*pf);
-    contextMenu->Append(item1);
-
-#else
 }
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
@@ -178,8 +161,24 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 }
 
 
+#endif
 
+void Dlg::OnContextMenu(wxContextMenuEvent& event)
+{
+    wxMenu* contextMenu = new wxMenu();
 
+#ifdef __ANDROID__
+    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
+
+    // add stuff
+
+    wxMenuItem* item2
+        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
+    item2->SetFont(*pf);
+    contextMenu->Append(item2);
+
+#endif
+}
 
 void Dlg::OnContextMenuSelect(wxCommandEvent& event)
 {
@@ -199,8 +198,6 @@ void Dlg::OnContextMenuSelect(wxCommandEvent& event)
     }
     }
 }
-
-#endif
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,
     wxString ptname, wxString ptsym, wxString pttype)
