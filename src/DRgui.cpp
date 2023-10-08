@@ -109,6 +109,10 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	bSizer9111->Fit( this );
 	m_menubar1 = new wxMenuBar( 0 );
 	m_menu1 = new wxMenu();
+	wxMenuItem* m_menuItem1;
+	m_menuItem1 = new wxMenuItem( m_menu1, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menu1->Append( m_menuItem1 );
+
 	m_menubar1->Append( m_menu1, wxT("Expand") );
 
 	this->SetMenuBar( m_menubar1 );
@@ -119,6 +123,7 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	// Connect Events
 	m_button2->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
+	m_menu1->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( m_Dialog::OnContextMenu ), this, m_menuItem1->GetId());
 }
 
 m_Dialog::~m_Dialog()

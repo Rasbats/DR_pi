@@ -53,6 +53,7 @@ class m_Dialog : public wxFrame
 		// Virtual event handlers, override them in your derived class
 		virtual void OnExpand( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnContextMenu( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
