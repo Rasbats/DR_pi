@@ -71,6 +71,9 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
     GetHandle()->setStyleSheet(qtStyleSheet);
     Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
 
+    Connect(wxEVT_CONTEXT_MENU,
+        wxContextMenuEventHandler(Dlg::OnContextMenu), NULL, this);
+
 #endif
 }
 
@@ -85,6 +88,22 @@ void Dlg::OnExpand(wxCommandEvent& event) {
 
   g_Window->SetSize(50,50); 
 
+}
+
+void Dlg::OnContextMenu(wxContextMenuEvent& event)
+{
+    wxMenu* contextMenu = new wxMenu();
+
+#ifdef __WXQT__
+    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
+
+    // add stuff
+    wxMenuItem* item1
+        = new wxMenuItem(contextMenu, wxID_ANY, _("DR..."));
+    item1->SetFont(*pf);
+    contextMenu->Append(item1);
+
+#else
 }
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
@@ -159,11 +178,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
    }*/
 }
 
-void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event) { 
 
-  g_Window->SetSize(50, 50); 
-
-}
 #endif
 
 void Dlg::OnContextMenu(wxContextMenuEvent& event)

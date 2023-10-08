@@ -132,7 +132,8 @@ int DR_pi::Init(void)
               WANTS_TOOLBAR_CALLBACK    |
               INSTALLS_TOOLBAR_TOOL     |
               WANTS_CONFIG             |
-			  WANTS_PLUGIN_MESSAGING
+			  WANTS_PLUGIN_MESSAGING | 
+        INSTALLS_CONTEXTMENU_ITEMS
 
            );
 }

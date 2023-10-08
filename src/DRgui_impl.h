@@ -66,8 +66,8 @@ public:
 #ifdef __ANDROID__
     void OnExpand(wxCommandEvent& event);
     void OnMouseEvent(wxMouseEvent& event);
-    void OnEvtPanGesture(wxQT_PanGestureEvent& event);
 #endif
+    void OnContextMenu(wxContextMenuEvent& evt);
 
     void OnPSGPX(wxCommandEvent& event);
     bool OpenXML();

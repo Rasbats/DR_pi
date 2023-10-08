@@ -103,9 +103,9 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	bSizer9111->Add( bSizer71, 0, wxEXPAND, 5 );
 
-
 	this->SetSizer( bSizer9111 );
-	this->Layout();
+  
+  this->Layout();
 	bSizer9111->Fit( this );
 
 	this->Centre( wxBOTH );
