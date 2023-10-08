@@ -97,7 +97,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
     wxPoint par_pos = g_Window->GetPosition();
 
-    g_mouse_pos_screen = event.GetPosition();
+    g_mouse_pos_screen = ClientToScreen(event.GetPosition());
     g_startMouse = g_Window->GetPosition();
 
     if (event.Dragging()) {
