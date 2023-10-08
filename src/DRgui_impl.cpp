@@ -77,8 +77,8 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 Dlg::~Dlg() { }
 
 #ifdef __ANDROID__
-wxPoint m_startPos;
-wxPoint m_startMouse;
+wxPoint g_startPos;
+wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
 void Dlg::OnExpand(wxCommandEvent& event) {
