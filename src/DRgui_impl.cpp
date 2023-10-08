@@ -94,7 +94,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
     if (event.Dragging()) {
        
-        wxPoint pos = event.GetCursorPos();
+        wxPoint pos = ClientToScreen(event.GetPosition());
         int x = wxMax(0, pos.x + m_startPos.x - m_startMouse.x);
         int y = wxMax(0, pos.y + m_startPos.y - m_startMouse.y);
         int xmax = ::wxGetDisplaySize().x - GetSize().x;
