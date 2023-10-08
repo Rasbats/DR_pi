@@ -158,6 +158,12 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
        }
    }*/
 }
+
+void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event) { 
+
+  g_Window->SetSize(50, 50); 
+
+}
 #endif
 
 void Dlg::OnContextMenu(wxContextMenuEvent& event)
