@@ -98,8 +98,7 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
     wxFont* pf = OCPNGetFont(_T("Menu"), 0);
 
     // add stuff
-    wxMenuItem* item1
-        = new wxMenuItem(contextMenu, wxID_ANY, _("DR..."));
+    wxMenuItem* item1 = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("DR..."));
     item1->SetFont(*pf);
     contextMenu->Append(item1);
 
@@ -179,24 +178,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 }
 
 
-#endif
 
-void Dlg::OnContextMenu(wxContextMenuEvent& event)
-{
-    wxMenu* contextMenu = new wxMenu();
 
-#ifdef __ANDROID__
-    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
-
-    // add stuff
-
-    wxMenuItem* item2
-        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
-    item2->SetFont(*pf);
-    contextMenu->Append(item2);
-
-#endif
-}
 
 void Dlg::OnContextMenuSelect(wxCommandEvent& event)
 {
@@ -216,6 +199,8 @@ void Dlg::OnContextMenuSelect(wxCommandEvent& event)
     }
     }
 }
+
+#endif
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,
     wxString ptname, wxString ptsym, wxString pttype)
