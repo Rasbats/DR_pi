@@ -23,7 +23,7 @@
 #include <wx/textctrl.h>
 #include <wx/choice.h>
 #include <wx/statline.h>
-#include <wx/dialog.h>
+#include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Class m_Dialog
 ///////////////////////////////////////////////////////////////////////////////
-class m_Dialog : public wxDialog
+class m_Dialog : public wxFrame
 {
 	private:
 
@@ -48,7 +48,6 @@ class m_Dialog : public wxDialog
 		wxStaticText* m_staticText71;
 
 		// Virtual event handlers, override them in your derived class
-		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void OnExpand( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
 
@@ -58,7 +57,7 @@ class m_Dialog : public wxDialog
 		wxChoice* m_Nship;
 		wxTextCtrl* m_Route;
 
-		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("DR"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
+		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_FRAME_STYLE|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
 
 		~m_Dialog();
 

@@ -90,6 +90,7 @@ public:
 	  void OnDRDialogClose();
 
 	  wxWindow         *m_parent_window;
+          bool m_bShowDR;
 	  
 private:
       
@@ -106,7 +107,7 @@ private:
       double m_ship_lon,m_ship_lat,m_cursor_lon,m_cursor_lat;
 
 	  bool             m_bDRShowIcon;
-	  bool             m_bShowDR;
+	  
 	  wxBitmap			m_panelBitmap;
 };
 

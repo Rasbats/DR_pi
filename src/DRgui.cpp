@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
@@ -29,7 +29,7 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	bSizer7->Add( m_button2, 0, wxALL|wxEXPAND, 5 );
 
 
-	bSizer9111->Add( bSizer7, 1, wxEXPAND, 5 );
+	bSizer9111->Add( bSizer7, 0, wxEXPAND, 5 );
 
 	wxBoxSizer* bSizer1311;
 	bSizer1311 = new wxBoxSizer( wxVERTICAL );
@@ -103,15 +103,14 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	bSizer9111->Add( bSizer71, 0, wxEXPAND, 5 );
 
+
 	this->SetSizer( bSizer9111 );
-  
-  this->Layout();
+	this->Layout();
 	bSizer9111->Fit( this );
 
 	this->Centre( wxBOTH );
 
 	// Connect Events
-	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( m_Dialog::OnClose ) );
 	m_button2->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
 }
@@ -119,7 +118,6 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 m_Dialog::~m_Dialog()
 {
 	// Disconnect Events
-	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( m_Dialog::OnClose ) );
 	m_button2->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
 
