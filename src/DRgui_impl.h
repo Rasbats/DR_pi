@@ -67,7 +67,6 @@ public:
     void OnExpand(wxCommandEvent& event);
     void OnMouseEvent(wxMouseEvent& event);
 #endif
-    void OnContextMenu(wxContextMenuEvent& evt);
 
     void OnPSGPX(wxCommandEvent& event);
     bool OpenXML();
