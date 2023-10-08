@@ -110,7 +110,7 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	m_menubar1 = new wxMenuBar( 0 );
 	m_menu1 = new wxMenu();
 	wxMenuItem* m_menuItem1;
-	m_menuItem1 = new wxMenuItem( m_menu1, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );
+	m_menuItem1 = new wxMenuItem( m_menu1, wxID_ANY, wxString( wxT("MyMenuItem") ) + wxT('\t') + wxT("CTRL-F12"), wxEmptyString, wxITEM_NORMAL );
 	m_menu1->Append( m_menuItem1 );
 
 	m_menubar1->Append( m_menu1, wxT("Expand") );
