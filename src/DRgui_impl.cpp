@@ -187,6 +187,7 @@ wxSize currentSize = g_Window->GetSize();
 
                 m_binResize = false;
                 m_binResize2 = false;
+            }
         }
     }
 }
