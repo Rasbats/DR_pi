@@ -137,7 +137,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         y = wxMin(y, ymax);
 
         g_Window->Move(x, y);
-    }
+    } else
     
    if (m_binResize) {
 
@@ -159,8 +159,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                wxSize dragSize = m_resizeStartSize;
 
-               dragSize.y += p.y;
-               dragSize.x += p.x;
+               dragSize.y += p.y - m_resizeStartPoint.y;
+               dragSize.x += p.x - m_resizeStartPoint.x;
                ;
 
                if ((par_pos.y + dragSize.y) > par_size.y)
