@@ -122,6 +122,7 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	// Connect Events
 	this->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( m_Dialog::OnRightClick ) );
+	m_staticText1511->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( m_Dialog::OnRightClick ), NULL, this );
 	m_button2->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
 	m_menu1->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( m_Dialog::OnContextMenu ), this, m_menuItem1->GetId());
@@ -131,6 +132,7 @@ m_Dialog::~m_Dialog()
 {
 	// Disconnect Events
 	this->Disconnect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( m_Dialog::OnRightClick ) );
+	m_staticText1511->Disconnect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( m_Dialog::OnRightClick ), NULL, this );
 	m_button2->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
 

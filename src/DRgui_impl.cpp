@@ -187,7 +187,7 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
 {
     wxMenu* contextMenu = new wxMenu();
 
-#ifdef __WXQT__
+#ifdef __ANDROID__
     wxFont* pf = OCPNGetFont(_T("Menu"), 0);
 
     // add stuff
