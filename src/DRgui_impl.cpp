@@ -124,89 +124,57 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         if (m_binResize2) {
 
             if (event.Dragging()) {
+                wxPoint p = event.GetPosition();
 
-                int x = wxMax(
-                    0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
-                int y = wxMax(
-                    0, g_startPos.y + (g_mouse_pos_screen.y - g_startMouse.y));
-                int xmax = ::wxGetDisplaySize().x - g_Window->GetSize().x;
-                x = wxMin(x, xmax);
-                int ymax = ::wxGetDisplaySize().y
-                    - (g_Window->GetSize().y); // Some fluff at the bottom
-                y = wxMin(y, ymax);
+                wxSize dragSize = m_resizeStartSize;
 
-                g_Window->Move(x, y);
+                dragSize.y += p.y - m_resizeStartPoint.y;
+                dragSize.x += p.x - m_resizeStartPoint.x;
+                ;
+
+                if ((par_pos.y + dragSize.y) > par_size.y)
+                    dragSize.y = par_size.y - par_pos.y;
+
+                if ((par_pos.x + dragSize.x) > par_size.x)
+                    dragSize.x = par_size.x - par_pos.x;
+
+                /// vertical
+                // dragSize.x = dragSize.y / aRatio;
+
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
+
+                g_Window->SetSize(dragSize);
             }
 
-            if (m_binResize) {
+            if (event.LeftUp()) {
+                wxPoint p = event.GetPosition();
 
-                wxSize currentSize = g_Window->GetSize();
-                double aRatio = (double)currentSize.y / (double)currentSize.x;
+                wxSize dragSize = m_resizeStartSize;
 
-                wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-                wxPoint par_pos
-                    = wxPoint(g_mouse_pos_screen.x, g_mouse_pos_screen.y);
+                dragSize.y += p.y - m_resizeStartPoint.y;
+                dragSize.x += p.x - m_resizeStartPoint.x;
+                ;
 
-                if (event.LeftDown()) {
-                    m_resizeStartPoint = event.GetPosition();
-                    m_resizeStartSize = currentSize;
-                    m_binResize2 = true;
-                }
+                if ((par_pos.y + dragSize.y) > par_size.y)
+                    dragSize.y = par_size.y - par_pos.y;
 
-                if (m_binResize2) {
-                    if (event.Dragging()) {
-                        wxPoint p = event.GetPosition();
+                if ((par_pos.x + dragSize.x) > par_size.x)
+                    dragSize.x = par_size.x - par_pos.x;
 
-                        wxSize dragSize = m_resizeStartSize;
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
 
-                        dragSize.y += p.y - m_resizeStartPoint.y;
-                        dragSize.x += p.x - m_resizeStartPoint.x;
-                        ;
+                g_Window->SetSize(dragSize);
 
-                        if ((par_pos.y + dragSize.y) > par_size.y)
-                            dragSize.y = par_size.y - par_pos.y;
-
-                        if ((par_pos.x + dragSize.x) > par_size.x)
-                            dragSize.x = par_size.x - par_pos.x;
-
-                        /// vertical
-                        // dragSize.x = dragSize.y / aRatio;
-
-                        // not too small
-                        dragSize.x = wxMax(dragSize.x, 150);
-                        dragSize.y = wxMax(dragSize.y, 150);
-
-                        g_Window->SetSize(dragSize);
-                        
-                    }
-                }
-                if (event.LeftUp()) {
-                    wxPoint p = event.GetPosition();
-
-                    wxSize dragSize = m_resizeStartSize;
-
-                    dragSize.y += p.y - m_resizeStartPoint.y;
-                    dragSize.x += p.x - m_resizeStartPoint.x;
-                    ;
-
-                    if ((par_pos.y + dragSize.y) > par_size.y)
-                        dragSize.y = par_size.y - par_pos.y;
-
-                    if ((par_pos.x + dragSize.x) > par_size.x)
-                        dragSize.x = par_size.x - par_pos.x;
-
-                    // not too small
-                    dragSize.x = wxMax(dragSize.x, 150);
-                    dragSize.y = wxMax(dragSize.y, 150);
-                   
-                    g_Window->SetSize(dragSize);
-
-                    m_binResize = false;
-                    m_binResize2 = false;
-                }
+                m_binResize = false;
+                m_binResize2 = false;
             }
         }
     }
+}
 }
 #endif
 
