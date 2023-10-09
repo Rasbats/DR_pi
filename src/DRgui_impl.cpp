@@ -158,8 +158,36 @@ wxSize currentSize = g_Window->GetSize();
                 dragSize.y = wxMax(dragSize.y, 150);
 
                 g_Window->SetSize(dragSize);
-                m_binResize = false;
             }
+            if (event.LeftUp()) {
+                wxPoint p = event.GetPosition();
+
+                wxSize dragSize = m_resizeStartSize;
+
+                dragSize.y += p.y - m_resizeStartPoint.y;
+                dragSize.x += p.x - m_resizeStartPoint.x;
+                ;
+
+                if ((par_pos.y + dragSize.y) > par_size.y)
+                    dragSize.y = par_size.y - par_pos.y;
+
+                if ((par_pos.x + dragSize.x) > par_size.x)
+                    dragSize.x = par_size.x - par_pos.x;
+
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
+                /*
+                                for( unsigned int i=0;
+                   i<m_ArrayOfInstrument.size(); i++ ) { DashboardInstrument*
+                   inst = m_ArrayOfInstrument.Item(i)->m_pInstrument;
+                   inst->Show();
+                                }
+                */
+                g_Window->SetSize(dragSize);
+
+                m_binResize = false;
+                m_binResize2 = false;
         }
     }
 }
