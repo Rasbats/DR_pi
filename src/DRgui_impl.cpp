@@ -141,7 +141,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     
    if (m_binResize) {
 
-       wxSize currentSize = g_window.GetSize();
+       wxSize currentSize = g_Window.GetSize();
        double aRatio = (double)currentSize.y / (double)currentSize.x;
 
        wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
@@ -176,7 +176,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                dragSize.x = wxMax(dragSize.x, 150);
                dragSize.y = wxMax(dragSize.y, 150);
 
-               g_window.SetSize(dragSize);
+               g_Window.SetSize(dragSize);
            }
 
        }
