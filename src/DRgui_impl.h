@@ -94,6 +94,7 @@ public:
 
     void OnPopupClick(wxCommandEvent& evt);
     void OnRightClick(wxMouseEvent& event);
+    void OnLongPress(wxLongPressEvent& event);
 
 private:
     void OnClose(wxCloseEvent& event);

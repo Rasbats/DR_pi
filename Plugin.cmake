@@ -70,6 +70,9 @@ macro(late_init)
   if (DR_USE_SVG)
     target_compile_definitions(${PACKAGE_NAME} PUBLIC DR_USE_SVG)
   endif ()
+
+  add_definitions("-DHAVE_WX_GESTURE_EVENTS")
+
 endmacro ()
 
 macro(add_plugin_libraries)

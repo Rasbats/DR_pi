@@ -35,6 +35,7 @@
 #include <list>
 #include <wx/progdlg.h>
 #include <wx/wx.h>
+#include <wx/event.h>
 
 #ifdef __ANDROID__
 wxWindow* g_Window;
@@ -63,6 +64,8 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
         wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL,
         this);
 
+    Bind(wxEVT_LONG_PRESS, &Dlg::OnLongPress, this);
+
 #ifdef __ANDROID__
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
@@ -73,6 +76,16 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
 Dlg::~Dlg() { }
 
+void Dlg::OnLongPress(wxLongPressEvent& event)
+{
+    wxMessageBox("here");  
+  wxMenu mnu;
+    mnu.Append(ID_SOMETHING, "Do something");
+    mnu.Append(ID_SOMETHING_ELSE, "Do something else");
+    mnu.Connect(wxEVT_COMMAND_MENU_SELECTED,
+        wxCommandEventHandler(Dlg::OnPopupClick), NULL, this);
+    PopupMenu(&mnu);
+}
 
  void Dlg::OnPopupClick(wxCommandEvent& evt)
 {
