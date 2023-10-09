@@ -175,7 +175,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         }
     }
 }
-}
+
 #endif
 
 void Dlg::OnContextMenu(wxContextMenuEvent& event)
