@@ -44,6 +44,7 @@
 #include "qtstylesheet.h"
 #include <wx/graphics.h>
 #include <wx/window.h>
+#include <wx/menu.h>
 
 
 #define ID_SOMETHING 2001
