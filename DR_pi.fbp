@@ -57,7 +57,7 @@
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
-            <event name="OnRightDown">OnRightClick</event>
+            <event name="OnLeftDClick">OnRightClick</event>
             <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size"></property>
                 <property name="name">bSizer9111</property>
@@ -131,7 +131,7 @@
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
                                 <property name="wrap">-1</property>
-                                <event name="OnRightDown">OnRightClick</event>
+                                <event name="OnLeftDClick">OnRightClick</event>
                             </object>
                         </object>
                         <object class="sizeritem" expanded="1">
