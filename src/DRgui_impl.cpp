@@ -123,7 +123,6 @@ wxSize currentSize = g_Window->GetSize();
         if (m_binResize) {
 
         wxSize currentSize = g_Window->GetSize();
-        double aRatio = (double)currentSize.y / (double)currentSize.x;
 
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = wxPoint(g_mouse_pos_screen.x, g_mouse_pos_screen.y);
