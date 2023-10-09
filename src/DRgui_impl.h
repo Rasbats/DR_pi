@@ -44,7 +44,6 @@
 #include "qtstylesheet.h"
 #include <wx/graphics.h>
 #include <wx/window.h>
-#include <wx/event.h>
 
 
 #define ID_SOMETHING 2001
@@ -96,7 +95,6 @@ public:
 
     void OnPopupClick(wxCommandEvent& evt);
     void OnRightClick(wxMouseEvent& event);
-    void OnLongPress(wxLongPressEvent& event);
 
 private:
     void OnClose(wxCloseEvent& event);
