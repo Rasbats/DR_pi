@@ -57,6 +57,8 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     pPlugIn->m_bShowDR = false;
 
+    m_binResize = false;
+
     Connect(wxEVT_CONTEXT_MENU,
         wxContextMenuEventHandler(Dlg::OnContextMenu), NULL, this);
     Connect(wxEVT_COMMAND_MENU_SELECTED,
@@ -79,6 +81,7 @@ Dlg::~Dlg() { }
 {
     switch (evt.GetId()) {
     case ID_SOMETHING:
+        m_binResize = true;
         break;
     case ID_SOMETHING_ELSE:
         break;
@@ -135,7 +138,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
         g_Window->Move(x, y);
     }
-    /*
+    
    if (m_binResize) {
 
        wxSize currentSize = g_window.GetSize();
@@ -177,7 +180,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
            }
 
        }
-   }*/
+   }
 }
 
 
