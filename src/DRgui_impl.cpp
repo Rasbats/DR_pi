@@ -109,72 +109,70 @@ void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
 
-    if (m_binResize) {
-        wxSize currentSize = g_Window->GetSize();
+    wxSize currentSize = g_Window->GetSize();
+    m_resizeStartPoint = event.GetPosition();
+    m_resizeStartSize = currentSize;
+    wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+    wxPoint par_pos = g_Window->GetPosition();
+
+    g_mouse_pos_screen = ClientToScreen(event.GetPosition());
+    g_startMouse = g_Window->GetPosition();
+    if (event.LeftDown()) {
         m_resizeStartPoint = event.GetPosition();
         m_resizeStartSize = currentSize;
-        wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-        wxPoint par_pos = g_Window->GetPosition();
+        m_binResize2 = true;
+    }
 
-        g_mouse_pos_screen = ClientToScreen(event.GetPosition());
-        g_startMouse = g_Window->GetPosition();
-        if (event.LeftDown()) {
-            m_resizeStartPoint = event.GetPosition();
-            m_resizeStartSize = currentSize;
-            m_binResize2 = true;
+    if (m_binResize2) {
+
+        if (event.Dragging()) {
+            wxPoint p = event.GetPosition();
+
+            wxSize dragSize = m_resizeStartSize;
+
+            dragSize.y += p.y - m_resizeStartPoint.y;
+            dragSize.x += p.x - m_resizeStartPoint.x;
+            ;
+
+            if ((par_pos.y + dragSize.y) > par_size.y)
+                dragSize.y = par_size.y - par_pos.y;
+
+            if ((par_pos.x + dragSize.x) > par_size.x)
+                dragSize.x = par_size.x - par_pos.x;
+
+            /// vertical
+            // dragSize.x = dragSize.y / aRatio;
+
+            // not too small
+            dragSize.x = wxMax(dragSize.x, 150);
+            dragSize.y = wxMax(dragSize.y, 150);
+
+            g_Window->SetSize(dragSize);
         }
 
-        if (m_binResize2) {
+        if (event.LeftUp()) {
+            wxPoint p = event.GetPosition();
 
-            if (event.Dragging()) {
-                wxPoint p = event.GetPosition();
+            wxSize dragSize = m_resizeStartSize;
 
-                wxSize dragSize = m_resizeStartSize;
+            dragSize.y += p.y - m_resizeStartPoint.y;
+            dragSize.x += p.x - m_resizeStartPoint.x;
+            ;
 
-                dragSize.y += p.y - m_resizeStartPoint.y;
-                dragSize.x += p.x - m_resizeStartPoint.x;
-                ;
+            if ((par_pos.y + dragSize.y) > par_size.y)
+                dragSize.y = par_size.y - par_pos.y;
 
-                if ((par_pos.y + dragSize.y) > par_size.y)
-                    dragSize.y = par_size.y - par_pos.y;
+            if ((par_pos.x + dragSize.x) > par_size.x)
+                dragSize.x = par_size.x - par_pos.x;
 
-                if ((par_pos.x + dragSize.x) > par_size.x)
-                    dragSize.x = par_size.x - par_pos.x;
+            // not too small
+            dragSize.x = wxMax(dragSize.x, 150);
+            dragSize.y = wxMax(dragSize.y, 150);
 
-                /// vertical
-                // dragSize.x = dragSize.y / aRatio;
+            g_Window->SetSize(dragSize);
 
-                // not too small
-                dragSize.x = wxMax(dragSize.x, 150);
-                dragSize.y = wxMax(dragSize.y, 150);
-
-                g_Window->SetSize(dragSize);
-            }
-
-            if (event.LeftUp()) {
-                wxPoint p = event.GetPosition();
-
-                wxSize dragSize = m_resizeStartSize;
-
-                dragSize.y += p.y - m_resizeStartPoint.y;
-                dragSize.x += p.x - m_resizeStartPoint.x;
-                ;
-
-                if ((par_pos.y + dragSize.y) > par_size.y)
-                    dragSize.y = par_size.y - par_pos.y;
-
-                if ((par_pos.x + dragSize.x) > par_size.x)
-                    dragSize.x = par_size.x - par_pos.x;
-
-                // not too small
-                dragSize.x = wxMax(dragSize.x, 150);
-                dragSize.y = wxMax(dragSize.y, 150);
-
-                g_Window->SetSize(dragSize);
-
-                m_binResize = false;
-                m_binResize2 = false;
-            }
+            m_binResize = false;
+            m_binResize2 = false;
         }
     }
 }
