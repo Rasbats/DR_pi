@@ -51,6 +51,7 @@ class m_Dialog : public wxFrame
 		wxMenu* m_menu1;
 
 		// Virtual event handlers, override them in your derived class
+		virtual void OnRightClick( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnExpand( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnContextMenu( wxCommandEvent& event ) { event.Skip(); }
@@ -61,7 +62,7 @@ class m_Dialog : public wxFrame
 		wxChoice* m_Nship;
 		wxTextCtrl* m_Route;
 
-		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_FRAME_STYLE|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
+		m_Dialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxSTAY_ON_TOP|wxTAB_TRAVERSAL );
 
 		~m_Dialog();
 

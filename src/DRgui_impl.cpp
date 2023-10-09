@@ -73,6 +73,29 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
 Dlg::~Dlg() { }
 
+
+ void Dlg::OnPopupClick(wxCommandEvent& evt)
+{
+    switch (evt.GetId()) {
+    case ID_SOMETHING:
+        break;
+    case ID_SOMETHING_ELSE:
+        break;
+    }
+}
+ 
+
+void Dlg::OnRightClick(wxMouseEvent& event)
+{
+
+    wxMenu mnu;
+    mnu.Append(ID_SOMETHING, "Do something");
+    mnu.Append(ID_SOMETHING_ELSE, "Do something else");
+    mnu.Connect(wxEVT_COMMAND_MENU_SELECTED,
+        wxCommandEventHandler(Dlg::OnPopupClick), NULL, this);
+    PopupMenu(&mnu);
+}
+
 #ifdef __ANDROID__
 wxPoint g_startPos;
 wxPoint g_startMouse;
