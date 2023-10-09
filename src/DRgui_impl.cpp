@@ -59,12 +59,10 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     m_binResize = false;
 
-    Connect(wxEVT_CONTEXT_MENU,
-        wxContextMenuEventHandler(Dlg::OnContextMenu), NULL, this);
+    Connect(wxEVT_CONTEXT_MENU, wxContextMenuEventHandler(Dlg::OnContextMenu),
+        NULL, this);
     Connect(wxEVT_COMMAND_MENU_SELECTED,
-        wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL,
-        this);
-
+        wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL, this);
 
 #ifdef __ANDROID__
     g_Window = this;
@@ -76,8 +74,7 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
 Dlg::~Dlg() { }
 
-
- void Dlg::OnPopupClick(wxCommandEvent& evt)
+void Dlg::OnPopupClick(wxCommandEvent& evt)
 {
     switch (evt.GetId()) {
     case ID_SOMETHING:
@@ -87,7 +84,6 @@ Dlg::~Dlg() { }
         break;
     }
 }
- 
 
 void Dlg::OnRightClick(wxMouseEvent& event)
 {
@@ -105,86 +101,113 @@ wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
-void Dlg::OnExpand(wxCommandEvent& event) {
-
-  g_Window->SetSize(50,50); 
-
-}
+void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
-    
-    
-  wxSize currentSize = g_Window->GetSize();
-    m_resizeStartPoint = event.GetPosition();
-    m_resizeStartSize = currentSize;
-    wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-    wxPoint par_pos = g_Window->GetPosition();
 
-    g_mouse_pos_screen = ClientToScreen(event.GetPosition());
-    g_startMouse = g_Window->GetPosition();
+    if (m_binResize) {
+        wxSize currentSize = g_Window->GetSize();
+        m_resizeStartPoint = event.GetPosition();
+        m_resizeStartSize = currentSize;
+        wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+        wxPoint par_pos = g_Window->GetPosition();
 
-    if (event.Dragging()) {
-       
-        int x
-            = wxMax(0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
-        int y
-            = wxMax(0, g_startPos.y + (g_mouse_pos_screen.y - g_startMouse.y));
-        int xmax = ::wxGetDisplaySize().x - g_Window->GetSize().x;
-        x = wxMin(x, xmax);
-        int ymax = ::wxGetDisplaySize().y
-            - (g_Window->GetSize().y); // Some fluff at the bottom
-        y = wxMin(y, ymax);
+        g_mouse_pos_screen = ClientToScreen(event.GetPosition());
+        g_startMouse = g_Window->GetPosition();
+        if (event.LeftDown()) {
+            m_resizeStartPoint = event.GetPosition();
+            m_resizeStartSize = currentSize;
+            m_binResize2 = true;
+        }
 
-        g_Window->Move(x, y);
-    } else
-    
-   if (m_binResize) {
+        if (m_binResize2) {
 
-       wxSize currentSize = g_Window->GetSize();
-       double aRatio = (double)currentSize.y / (double)currentSize.x;
+            if (event.Dragging()) {
 
-       wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-       wxPoint par_pos = wxPoint(g_mouse_pos_screen.x, g_mouse_pos_screen.y);
+                int x = wxMax(
+                    0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
+                int y = wxMax(
+                    0, g_startPos.y + (g_mouse_pos_screen.y - g_startMouse.y));
+                int xmax = ::wxGetDisplaySize().x - g_Window->GetSize().x;
+                x = wxMin(x, xmax);
+                int ymax = ::wxGetDisplaySize().y
+                    - (g_Window->GetSize().y); // Some fluff at the bottom
+                y = wxMin(y, ymax);
 
-       if (event.LeftDown()) {
-           m_resizeStartPoint = event.GetPosition();
-           m_resizeStartSize = currentSize;
-           m_binResize2 = true;
-       }
+                g_Window->Move(x, y);
+            }
 
-       if (m_binResize2) {
-           if (event.Dragging()) {
-               wxPoint p = event.GetPosition();
+            if (m_binResize) {
 
-               wxSize dragSize = m_resizeStartSize;
+                wxSize currentSize = g_Window->GetSize();
+                double aRatio = (double)currentSize.y / (double)currentSize.x;
 
-               dragSize.y += p.y - m_resizeStartPoint.y;
-               dragSize.x += p.x - m_resizeStartPoint.x;
-               ;
+                wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+                wxPoint par_pos
+                    = wxPoint(g_mouse_pos_screen.x, g_mouse_pos_screen.y);
 
-               if ((par_pos.y + dragSize.y) > par_size.y)
-                   dragSize.y = par_size.y - par_pos.y;
+                if (event.LeftDown()) {
+                    m_resizeStartPoint = event.GetPosition();
+                    m_resizeStartSize = currentSize;
+                    m_binResize2 = true;
+                }
 
-               if ((par_pos.x + dragSize.x) > par_size.x)
-                   dragSize.x = par_size.x - par_pos.x;
+                if (m_binResize2) {
+                    if (event.Dragging()) {
+                        wxPoint p = event.GetPosition();
 
-               /// vertical
-               // dragSize.x = dragSize.y / aRatio;
+                        wxSize dragSize = m_resizeStartSize;
 
-               // not too small
-               dragSize.x = wxMax(dragSize.x, 150);
-               dragSize.y = wxMax(dragSize.y, 150);
+                        dragSize.y += p.y - m_resizeStartPoint.y;
+                        dragSize.x += p.x - m_resizeStartPoint.x;
+                        ;
 
-               g_Window->SetSize(dragSize);
-               m_binResize = false;
-           }
+                        if ((par_pos.y + dragSize.y) > par_size.y)
+                            dragSize.y = par_size.y - par_pos.y;
 
-       }
-   }
+                        if ((par_pos.x + dragSize.x) > par_size.x)
+                            dragSize.x = par_size.x - par_pos.x;
+
+                        /// vertical
+                        // dragSize.x = dragSize.y / aRatio;
+
+                        // not too small
+                        dragSize.x = wxMax(dragSize.x, 150);
+                        dragSize.y = wxMax(dragSize.y, 150);
+
+                        g_Window->SetSize(dragSize);
+                        
+                    }
+                }
+                if (event.LeftUp()) {
+                    wxPoint p = event.GetPosition();
+
+                    wxSize dragSize = m_resizeStartSize;
+
+                    dragSize.y += p.y - m_resizeStartPoint.y;
+                    dragSize.x += p.x - m_resizeStartPoint.x;
+                    ;
+
+                    if ((par_pos.y + dragSize.y) > par_size.y)
+                        dragSize.y = par_size.y - par_pos.y;
+
+                    if ((par_pos.x + dragSize.x) > par_size.x)
+                        dragSize.x = par_size.x - par_pos.x;
+
+                    // not too small
+                    dragSize.x = wxMax(dragSize.x, 150);
+                    dragSize.y = wxMax(dragSize.y, 150);
+                   
+                    g_Window->SetSize(dragSize);
+
+                    m_binResize = false;
+                    m_binResize2 = false;
+                }
+            }
+        }
+    }
 }
-
-
 #endif
 
 void Dlg::OnContextMenu(wxContextMenuEvent& event)
@@ -200,8 +223,6 @@ void Dlg::OnContextMenu(wxContextMenuEvent& event)
         = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
     item2->SetFont(*pf);
     contextMenu->Append(item2);
-    
-
 
 #endif
     PopupMenu(contextMenu);
@@ -339,7 +360,8 @@ bool Dlg::OpenXML()
                     my_positions.push_back(my_position);
                 } // else if(!strcmp(f->Value(), "extensions")) {
                 // rte_start =
-                // wxString::FromUTF8(f->Attribute("opencpn:start")); rte_end =
+                // wxString::FromUTF8(f->Attribute("opencpn:start"));
+                // rte_end =
                 // wxString::FromUTF8(f->Attribute("opencpn:end"));
 
                 //}
@@ -378,8 +400,8 @@ void Dlg::Calculate(wxCommandEvent& event, bool write_file, int Pattern)
 
         lat1 = 0.0;
         lon1 = 0.0;
-        // if (error_occured) wxMessageBox(_T("error in conversion of input
-        // coordinates"));
+        // if (error_occured) wxMessageBox(_T("error in conversion of
+        // input coordinates"));
 
         // error_occured=false;
         wxString s;
@@ -548,11 +570,11 @@ void Dlg::Calculate(wxCommandEvent& event, bool write_file, int Pattern)
                     // DR point is before the next route point
                     //
                     route_dist = total_dist
-                        - myDist; // route_dist is the distance between the
-                                  // previous DR and the route point
+                        - myDist; // route_dist is the distance between
+                                  // the previous DR and the route point
                     remaining_dist
-                        = speed - route_dist; // distance between route point
-                                              // and next DR
+                        = speed - route_dist; // distance between route
+                                              // point and next DR
 
                     DistanceBearingMercator(latN[i + 1], lonN[i + 1], latN[i],
                         lonN[i], &myDist, &myBrng);
