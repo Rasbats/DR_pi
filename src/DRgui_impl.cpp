@@ -124,7 +124,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     g_mouse_pos_screen = ClientToScreen(event.GetPosition());
     g_startMouse = g_Window->GetPosition();
 
-    if (event.Dragging()) {
+    if (event.Dragging() && !m_binResize) {
        
         int x
             = wxMax(0, g_startPos.x + (g_mouse_pos_screen.x - g_startMouse.x));
@@ -133,7 +133,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         int xmax = ::wxGetDisplaySize().x - g_Window->GetSize().x;
         x = wxMin(x, xmax);
         int ymax = ::wxGetDisplaySize().y
-            - (g_Window->GetSize().y*2); // Some fluff at the bottom
+            - (g_Window->GetSize().y); // Some fluff at the bottom
         y = wxMin(y, ymax);
 
         g_Window->Move(x, y);
