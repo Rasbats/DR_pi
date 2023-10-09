@@ -35,7 +35,6 @@
 #include <list>
 #include <wx/progdlg.h>
 #include <wx/wx.h>
-#include <wx/event.h>
 
 #ifdef __ANDROID__
 wxWindow* g_Window;
