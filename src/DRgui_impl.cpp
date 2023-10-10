@@ -82,6 +82,7 @@ void Dlg::OnPopupClick(wxCommandEvent& evt)
     switch (evt.GetId()) {
     case ID_SOMETHING:
         m_binResize = true;
+        wxMessageBox("here");
         break;
     case ID_SOMETHING_ELSE:
         break;
