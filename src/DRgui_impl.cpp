@@ -109,10 +109,6 @@ void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
-        m_resizeStartPoint = event.GetPosition();
-        m_resizeStartSize = currentSize;
-
-
         wxSize currentSize = g_Window->GetSize();
         m_resizeStartPoint = event.GetPosition();
         m_resizeStartSize = currentSize;
