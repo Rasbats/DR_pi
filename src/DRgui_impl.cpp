@@ -82,7 +82,6 @@ void Dlg::OnPopupClick(wxCommandEvent& evt)
     switch (evt.GetId()) {
     case ID_SOMETHING:
         m_binResize = true;
-        wxMessageBox("here");
         break;
     case ID_SOMETHING_ELSE:
         break;
@@ -110,6 +109,8 @@ void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
+        wxMessageBox("here");
+
         wxSize currentSize = g_Window->GetSize();
         m_resizeStartPoint = event.GetPosition();
         m_resizeStartSize = currentSize;
