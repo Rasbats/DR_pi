@@ -159,8 +159,10 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
 
-                g_Window->Move(m_resizeStartPoint);
+                
                 g_Window->SetSize(dragSize);
+                g_Window->Move(m_resizeStartPoint);
+                
                 m_binResize = false;
                 m_binResize2 = false;
             }
