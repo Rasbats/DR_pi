@@ -110,7 +110,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
         wxSize currentSize = g_Window->GetSize();
-        m_resizeStartPoint = event.GetPosition();
+        m_resizeStartPoint = ClientToScreen(event.GetPosition());
         m_resizeStartSize = currentSize;
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = g_Window->GetPosition();
