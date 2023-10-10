@@ -123,16 +123,16 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y += p.y; //  -m_resizeStartPoint.y;
-                dragSize.x += p.x; //  - m_resizeStartPoint.x;
+                dragSize.y = p.y; //  -m_resizeStartPoint.y;
+                dragSize.x = p.x; //  - m_resizeStartPoint.x;
                 ;
-
+                /*
                 if ((par_pos.y + dragSize.y) > par_size.y)
                     dragSize.y = par_size.y - par_pos.y;
 
                 if ((par_pos.x + dragSize.x) > par_size.x)
                     dragSize.x = par_size.x - par_pos.x;
-
+*/
                 /// vertical
                 // dragSize.x = dragSize.y / aRatio;
 
@@ -145,16 +145,17 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y += p.y - m_resizeStartPoint.y;
-                dragSize.x += p.x - m_resizeStartPoint.x;
+                dragSize.y = p.y;//                -m_resizeStartPoint.y;
+                dragSize.x = p.x;//
+                -m_resizeStartPoint.x;
                 ;
-
+                /*
                 if ((par_pos.y + dragSize.y) > par_size.y)
                     dragSize.y = par_size.y - par_pos.y;
 
                 if ((par_pos.x + dragSize.x) > par_size.x)
                     dragSize.x = par_size.x - par_pos.x;
-
+*/
                 // not too small
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
