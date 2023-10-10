@@ -120,11 +120,11 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
         if (m_binResize2) {
             if (event.Dragging()) {
-                wxPoint p = m_resizeStartPoint;
+                wxPoint p = event.GetPosition();
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y = p.y; //  -m_resizeStartPoint.y;
+                dragSize.y = p.y; //  - m_resizeStartPoint.y;
                 dragSize.x = p.x; //  - m_resizeStartPoint.x;
                 ;
                 /*
