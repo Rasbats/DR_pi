@@ -109,7 +109,9 @@ void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
-        wxMessageBox("here");
+        m_resizeStartPoint = event.GetPosition();
+        m_resizeStartSize = currentSize;
+
 
         wxSize currentSize = g_Window->GetSize();
         m_resizeStartPoint = event.GetPosition();
@@ -117,11 +119,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = g_Window->GetPosition();
 
-        if (event.LeftDown()) {
-            m_resizeStartPoint = event.GetPosition();
-            m_resizeStartSize = currentSize;
             m_binResize2 = true;
-        }
 
         if (m_binResize2) {
             if (event.Dragging()) {
