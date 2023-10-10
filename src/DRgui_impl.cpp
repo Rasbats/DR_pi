@@ -140,6 +140,15 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 // not too small
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
+
+                int x = wxMax(0, m_resizeStartPoint.x );
+                int y = wxMax(0, m_resizeStartPoint.y );
+                int xmax = ::wxGetDisplaySize().x - GetSize().x;
+                x = wxMin(x, xmax);
+                int ymax = ::wxGetDisplaySize().y - (GetSize().y); // Some fluff at the bottom
+                y = wxMin(y, ymax);
+
+                g_Window->Move(x, y);
             }
             if (event.LeftUp()) {
                 wxPoint p = event.GetPosition();
