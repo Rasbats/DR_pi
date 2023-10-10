@@ -108,24 +108,12 @@ void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
-
-wxSize currentSize = g_Window->GetSize();
-    m_resizeStartPoint = event.GetPosition();
-    m_resizeStartSize = currentSize;
-    wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-    wxPoint par_pos = g_Window->GetPosition();
-
-    g_mouse_pos_screen = ClientToScreen(event.GetPosition());
-    g_startMouse = g_Window->GetPosition();
-
-
-
-        if (m_binResize) {
-
+    if (m_binResize) {
         wxSize currentSize = g_Window->GetSize();
-
+        m_resizeStartPoint = event.GetPosition();
+        m_resizeStartSize = currentSize;
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-        wxPoint par_pos = wxPoint(g_mouse_pos_screen.x, g_mouse_pos_screen.y);
+        wxPoint par_pos = g_Window->GetPosition();
 
         if (event.LeftDown()) {
             m_resizeStartPoint = event.GetPosition();
@@ -156,8 +144,31 @@ wxSize currentSize = g_Window->GetSize();
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
 
+                
+            }
+            if (event.LeftUp()) {
+                wxPoint p = event.GetPosition();
+
+                wxSize dragSize = m_resizeStartSize;
+
+                dragSize.y += p.y - m_resizeStartPoint.y;
+                dragSize.x += p.x - m_resizeStartPoint.x;
+                ;
+
+                if ((par_pos.y + dragSize.y) > par_size.y)
+                    dragSize.y = par_size.y - par_pos.y;
+
+                if ((par_pos.x + dragSize.x) > par_size.x)
+                    dragSize.x = par_size.x - par_pos.x;
+
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
+
                 g_Window->SetSize(dragSize);
-            }            
+                m_binResize = false;
+                m_binResize2 = false;
+            }
         }
     }
 }
