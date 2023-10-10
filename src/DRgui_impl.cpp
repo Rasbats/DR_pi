@@ -110,12 +110,13 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
         wxSize currentSize = g_Window->GetSize();
-        m_resizeStartPoint = ClientToScreen(event.GetPosition());
-        m_resizeStartSize = currentSize;
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = g_Window->GetPosition();
-
-        m_binResize2 = true;
+        if (event.LeftDown()) {
+            m_resizeStartPoint = ClientToScreen(event.GetPosition());
+            m_resizeStartSize = currentSize;
+            m_binResize2 = true;
+        }
 
         if (m_binResize2) {
             if (event.Dragging()) {
