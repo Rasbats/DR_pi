@@ -124,8 +124,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y = p.y; //  -m_resizeStartPoint.y;
-                dragSize.x = p.x; //  - m_resizeStartPoint.x;
+                dragSize.y += p.y -m_resizeStartPoint.y;
+                dragSize.x += p.x - m_resizeStartPoint.x;
                 ;
                 /*
                 if ((par_pos.y + dragSize.y) > par_size.y)
@@ -146,8 +146,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y = p.y;//                -m_resizeStartPoint.y;
-                dragSize.x = p.x;//                -m_resizeStartPoint.x;
+                dragSize.y += p.y -m_resizeStartPoint.y;
+                dragSize.x += p.x -m_resizeStartPoint.x;
                 ;
                 /*
                 if ((par_pos.y + dragSize.y) > par_size.y)
