@@ -83,8 +83,8 @@ void Dlg::OnPopupClick(wxCommandEvent& evt)
     case ID_SOMETHING:
         m_binResize = true;
         break;
-    case ID_SOMETHING_ELSE:
-        break;
+   // case ID_SOMETHING_ELSE:
+     //   break;
     }
 }
 
@@ -92,8 +92,8 @@ void Dlg::OnRightClick(wxMouseEvent& event)
 {
 
     wxMenu mnu;
-    mnu.Append(ID_SOMETHING, "Do something");
-    mnu.Append(ID_SOMETHING_ELSE, "Do something else");
+    mnu.Append(ID_SOMETHING, "Resize...");
+   // mnu.Append(ID_SOMETHING_ELSE, "Do something else");
     mnu.Connect(wxEVT_COMMAND_MENU_SELECTED,
         wxCommandEventHandler(Dlg::OnPopupClick), NULL, this);
     PopupMenu(&mnu);
