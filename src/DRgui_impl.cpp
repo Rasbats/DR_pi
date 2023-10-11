@@ -141,11 +141,12 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
 
-                int x = wxMax(0, m_resizeStartPoint.x );
-                int y = wxMax(0, m_resizeStartPoint.y );
+                int x = wxMax(0, m_resizeStartPoint.x);
+                int y = wxMax(0, m_resizeStartPoint.y);
                 int xmax = ::wxGetDisplaySize().x - GetSize().x;
                 x = wxMin(x, xmax);
-                int ymax = ::wxGetDisplaySize().y - (GetSize().y); // Some fluff at the bottom
+                int ymax = ::wxGetDisplaySize().y
+                    - (GetSize().y); // Some fluff at the bottom
                 y = wxMin(y, ymax);
 
                 g_Window->Move(x, y);
@@ -155,8 +156,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y = p.y;//                -m_resizeStartPoint.y;
-                dragSize.x = p.x;//                -m_resizeStartPoint.x;
+                dragSize.y = p.y; //                -m_resizeStartPoint.y;
+                dragSize.x = p.x; //                -m_resizeStartPoint.x;
                 ;
                 /*
                 if ((par_pos.y + dragSize.y) > par_size.y)
@@ -169,12 +170,25 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
 
-                
                 g_Window->SetSize(dragSize);
-                
+
                 m_binResize = false;
                 m_binResize2 = false;
             }
+        }
+    } else {
+
+        if (event.Dragging()) {
+            m_resizeStartPoint = event.GetPosition();
+            int x = wxMax(0, m_resizeStartPoint.x);
+            int y = wxMax(0, m_resizeStartPoint.y);
+            int xmax = ::wxGetDisplaySize().x - GetSize().x;
+            x = wxMin(x, xmax);
+            int ymax = ::wxGetDisplaySize().y
+                - (GetSize().y); // Some fluff at the bottom
+            y = wxMin(y, ymax);
+
+            g_Window->Move(x, y);
         }
     }
 }

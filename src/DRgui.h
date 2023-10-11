@@ -15,15 +15,14 @@
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/button.h>
-#include <wx/bitmap.h>
-#include <wx/image.h>
-#include <wx/icon.h>
 #include <wx/sizer.h>
 #include <wx/textctrl.h>
 #include <wx/choice.h>
 #include <wx/statline.h>
-#include <wx/menu.h>
+#include <wx/button.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -38,7 +37,6 @@ class m_Dialog : public wxFrame
 
 	protected:
 		wxStaticText* m_staticText1511;
-		wxButton* m_button2;
 		wxStaticText* m_staticText32111112;
 		wxStaticText* m_staticText33111111;
 		wxStaticText* m_staticText32111111;
@@ -47,14 +45,10 @@ class m_Dialog : public wxFrame
 		wxStaticLine* m_staticline1;
 		wxButton* m_button3111;
 		wxStaticText* m_staticText71;
-		wxMenuBar* m_menubar1;
-		wxMenu* m_menu1;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void OnRightClick( wxMouseEvent& event ) { event.Skip(); }
-		virtual void OnExpand( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnContextMenu( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:

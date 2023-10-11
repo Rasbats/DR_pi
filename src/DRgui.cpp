@@ -25,9 +25,6 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 
 	bSizer7->Add( m_staticText1511, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-	m_button2 = new wxButton( this, wxID_ANY, wxT("Expand"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer7->Add( m_button2, 0, wxALL|wxEXPAND, 5 );
-
 
 	bSizer9111->Add( bSizer7, 0, wxEXPAND, 5 );
 
@@ -107,25 +104,13 @@ m_Dialog::m_Dialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	this->SetSizer( bSizer9111 );
 	this->Layout();
 	bSizer9111->Fit( this );
-	m_menubar1 = new wxMenuBar( 0 );
-	m_menu1 = new wxMenu();
-	wxMenuItem* m_menuItem1;
-	m_menuItem1 = new wxMenuItem( m_menu1, wxID_ANY, wxString( wxT("MyMenuItem") ) + wxT('\t') + wxT("CTRL-F12"), wxEmptyString, wxITEM_NORMAL );
-	m_menu1->Append( m_menuItem1 );
-
-	m_menubar1->Append( m_menu1, wxT("Expand") );
-
-	this->SetMenuBar( m_menubar1 );
-
 
 	this->Centre( wxBOTH );
 
 	// Connect Events
 	this->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( m_Dialog::OnRightClick ) );
 	m_staticText1511->Connect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( m_Dialog::OnRightClick ), NULL, this );
-	m_button2->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
-	m_menu1->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( m_Dialog::OnContextMenu ), this, m_menuItem1->GetId());
 }
 
 m_Dialog::~m_Dialog()
@@ -133,7 +118,6 @@ m_Dialog::~m_Dialog()
 	// Disconnect Events
 	this->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( m_Dialog::OnRightClick ) );
 	m_staticText1511->Disconnect( wxEVT_LEFT_DCLICK, wxMouseEventHandler( m_Dialog::OnRightClick ), NULL, this );
-	m_button2->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnExpand ), NULL, this );
 	m_button3111->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( m_Dialog::OnPSGPX ), NULL, this );
 
 }
