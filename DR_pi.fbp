@@ -131,7 +131,7 @@
                                 <property name="window_name"></property>
                                 <property name="window_style"></property>
                                 <property name="wrap">-1</property>
-                                <event name="OnLeftDClick">OnRightClick</event>
+                                <event name="OnLeftDClick">OnDLeftClick</event>
                             </object>
                         </object>
                     </object>
