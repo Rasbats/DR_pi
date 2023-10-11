@@ -57,14 +57,10 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     pPlugIn->m_bShowDR = false;
 
+#ifdef __ANDROID__    
+    
     m_binResize = false;
 
-    Connect(wxEVT_CONTEXT_MENU, wxContextMenuEventHandler(Dlg::OnContextMenu),
-        NULL, this);
-    Connect(wxEVT_COMMAND_MENU_SELECTED,
-        wxCommandEventHandler(Dlg::OnContextMenuSelect), NULL, this);
-
-#ifdef __ANDROID__
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
     Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Dlg::OnMouseEvent));
@@ -77,6 +73,11 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
 Dlg::~Dlg() { }
 
+#ifdef __ANDROID__
+wxPoint g_startPos;
+wxPoint g_startMouse;
+wxPoint g_mouse_pos_screen;
+
 void Dlg::OnPopupClick(wxCommandEvent& evt)
 {
     switch (evt.GetId()) {
@@ -88,7 +89,7 @@ void Dlg::OnPopupClick(wxCommandEvent& evt)
     }
 }
 
-void Dlg::OnRightClick(wxMouseEvent& event)
+void Dlg::OnDLeftClick(wxMouseEvent& event)
 {
 
     wxMenu mnu;
@@ -98,13 +99,6 @@ void Dlg::OnRightClick(wxMouseEvent& event)
         wxCommandEventHandler(Dlg::OnPopupClick), NULL, this);
     PopupMenu(&mnu);
 }
-
-#ifdef __ANDROID__
-wxPoint g_startPos;
-wxPoint g_startMouse;
-wxPoint g_mouse_pos_screen;
-
-void Dlg::OnExpand(wxCommandEvent& event) { g_Window->SetSize(50, 50); }
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
@@ -134,9 +128,6 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 if ((par_pos.x + dragSize.x) > par_size.x)
                     dragSize.x = par_size.x - par_pos.x;
 */
-                /// vertical
-                // dragSize.x = dragSize.y / aRatio;
-
                 // not too small
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
@@ -156,16 +147,9 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = m_resizeStartSize;
 
-                dragSize.y = p.y; //                -m_resizeStartPoint.y;
-                dragSize.x = p.x; //                -m_resizeStartPoint.x;
-                ;
-                /*
-                if ((par_pos.y + dragSize.y) > par_size.y)
-                    dragSize.y = par_size.y - par_pos.y;
+                dragSize.y = p.y; 
+                dragSize.x = p.x; 
 
-                if ((par_pos.x + dragSize.x) > par_size.x)
-                    dragSize.x = par_size.x - par_pos.x;
-*/
                 // not too small
                 dragSize.x = wxMax(dragSize.x, 150);
                 dragSize.y = wxMax(dragSize.y, 150);
@@ -193,45 +177,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     }
 }
 
-#endif
-
-void Dlg::OnContextMenu(wxContextMenuEvent& event)
-{
-    wxMenu* contextMenu = new wxMenu();
-
-#ifdef __ANDROID__
-    wxFont* pf = OCPNGetFont(_T("Menu"), 0);
-
-    // add stuff
-
-    wxMenuItem* item2
-        = new wxMenuItem(contextMenu, ID_DASH_RESIZE, _("Resize..."));
-    item2->SetFont(*pf);
-    contextMenu->Append(item2);
-
-#endif
-    PopupMenu(contextMenu);
-    delete contextMenu;
-}
-
-void Dlg::OnContextMenuSelect(wxCommandEvent& event)
-{
-
-    switch (event.GetId()) {
-    case ID_DASH_RESIZE: {
-        /*
-                    for( unsigned int i=0; i<m_ArrayOfInstrument.size();
-           i++ ) { DashboardInstrument* inst =
-           m_ArrayOfInstrument.Item(i)->m_pInstrument; inst->Hide();
-                    }
-        */
-        m_binResize = true;
-        wxMessageBox("here");
-
-        return;
-    }
-    }
-}
+#endif  // End of Android functions for move/resize
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,
     wxString ptname, wxString ptsym, wxString pttype)

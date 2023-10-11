@@ -50,11 +50,6 @@
 #define ID_SOMETHING 2001
 #define ID_SOMETHING_ELSE 2002
 
-
-enum {
-    ID_DASH_RESIZE,
-};
-
 using namespace std;
 
 class DR_pi;
@@ -69,8 +64,15 @@ public:
     DR_pi* pPlugIn;
 
 #ifdef __ANDROID__
-    void OnExpand(wxCommandEvent& event);
-    void OnMouseEvent(wxMouseEvent& event);
+    void OnMouseEvent(wxMouseEvent& event);    
+    wxPoint m_resizeStartPoint;
+    wxSize m_resizeStartSize;
+    bool m_binResize;
+    bool m_binResize2;
+
+    void OnPopupClick(wxCommandEvent& evt);
+    void OnDLeftClick(wxMouseEvent& event);
+
 #endif
 
     void OnPSGPX(wxCommandEvent& event);
@@ -85,17 +87,6 @@ public:
 
     wxString rte_start;
     wxString rte_end;
-    void OnContextMenu(wxContextMenuEvent& event);
-    void OnContextMenuSelect(wxCommandEvent& event);
-    int m_position_menu_id;
-
-    wxPoint m_resizeStartPoint;
-    wxSize m_resizeStartSize;
-    bool m_binResize;
-    bool m_binResize2;
-
-    void OnPopupClick(wxCommandEvent& evt);
-    void OnRightClick(wxMouseEvent& event);
 
 private:
     void OnClose(wxCloseEvent& event);
