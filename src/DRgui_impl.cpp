@@ -105,7 +105,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     if (m_binResize) {
         
         wxSize currentSize = g_Window->GetSize();
-        currentSize.operator*= 2;
+        currentSize.operator*=(2);
         return;
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = g_Window->GetPosition();
@@ -117,7 +117,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
         if (m_binResize2) {
             if (event.Dragging()) {
-                currentSize.operator*=2;
+                currentSize.operator*=(2);
                 wxPoint p = event.GetPosition();
 
                 wxSize dragSize = m_resizeStartSize;
