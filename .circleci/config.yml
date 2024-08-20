@@ -21,4 +21,11 @@ std-filters: &std-filters
         - tmp
         - /tmp-.*/
 
+workflows:
+  version: 2
+  build_all:
+    jobs:
+
+      - build-android-armhf:
+          <<: *std-filters
 
