@@ -45,6 +45,7 @@
 #include <wx/graphics.h>
 #include <wx/window.h>
 #include <wx/menu.h>
+#include <wx/aui/aui.h>
 
 #ifdef __ANDROID__
 #include <wx/qt/private/wxQtGesture.h>
