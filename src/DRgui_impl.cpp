@@ -131,6 +131,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 m_binResize = false;
                 m_binResize2 = false;
+
+                RequestRefresh(pParent);
             }
         }
     } else {
