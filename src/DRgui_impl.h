@@ -73,6 +73,8 @@ public:
     wxSize m_resizeStartSize;
     bool m_binResize;
     bool m_binResize2;
+    bool m_binPan;
+
 
     void OnPopupClick(wxCommandEvent& evt);
     void OnDLeftClick(wxMouseEvent& event);
@@ -95,6 +97,7 @@ public:
 
     wxString rte_start;
     wxString rte_end;
+
 
 private:
     void OnClose(wxCloseEvent& event);

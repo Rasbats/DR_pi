@@ -75,7 +75,7 @@ wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
 Connect(wxEVT_QT_PANGESTURE,
-    (wxObjectEventFunction)(wxEventFunction)&g_Window::OnEvtPanGesture,
+    (wxObjectEventFunction)(wxEventFunction)&Dlg::OnEvtPanGesture,
     NULL, this);
 
 void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event)
