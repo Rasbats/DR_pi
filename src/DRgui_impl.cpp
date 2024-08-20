@@ -124,7 +124,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
             
             RequestRefresh(pParent);
             
-            event.Skip()
+            event.Skip();
 
     } else {
 
