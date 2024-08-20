@@ -102,55 +102,50 @@ void Dlg::OnDLeftClick(wxMouseEvent& event)
 
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
-    if (m_binResize) {
 
-       
-            wxPoint p = event.GetPosition();
-            wxSize currentSize = g_Window->GetSize();
-            wxSize dragSize;
+    if (event.Dragging()) {
+        m_resizeStartPoint = event.GetPosition();
+        int x = wxMax(0, m_resizeStartPoint.x);
+        int y = wxMax(0, m_resizeStartPoint.y);
+        int xmax = ::wxGetDisplaySize().x - GetSize().x;
+        x = wxMin(x, xmax);
+        int ymax = ::wxGetDisplaySize().y
+            - (GetSize().y); // Some fluff at the bottom
+        y = wxMin(y, ymax);
 
-            dragSize.x = abs(currentSize.x * 1.2);
-            dragSize.y = abs(currentSize.y * 1.2);
-
-            // not too small
-            dragSize.x = wxMax(dragSize.x, 150);
-            dragSize.y = wxMax(dragSize.y, 150);
-
-            g_Window->SetSize(dragSize);
-
-            m_binResize = false;
-            m_binResize2 = false;
-
-            
-            RequestRefresh(pParent);
-            
-            event.Skip();
-
-    } else {
-
-        if (event.Dragging()) {
-            m_resizeStartPoint = event.GetPosition();
-            int x = wxMax(0, m_resizeStartPoint.x);
-            int y = wxMax(0, m_resizeStartPoint.y);
-            int xmax = ::wxGetDisplaySize().x - GetSize().x;
-            x = wxMin(x, xmax);
-            int ymax = ::wxGetDisplaySize().y
-                - (GetSize().y); // Some fluff at the bottom
-            y = wxMin(y, ymax);
-
-            g_Window->Move(x, y);
-        }
+        g_Window->Move(x, y);
     }
-
-    RequestRefresh(pParent);
 }
 
-void Dlg::sizeplus(wxCommandEvent& event) {
+void Dlg::sizeplus(wxCommandEvent& event)
+{
     wxSize currentSize = g_Window->GetSize();
     wxSize plusSize;
 
     plusSize.x = abs(currentSize.x * 1.2);
     plusSize.y = abs(currentSize.y * 1.2);
+
+    // not too large
+    int xmax = ::wxGetDisplaySize().x - GetSize().x;
+    plusSize.x = wxMin(plusSize.x, xmax);
+    int ymax
+        = ::wxGetDisplaySize().y - (GetSize().y); // Some fluff at the bottom
+    plusSize.y = wxMin(plusSize.y, ymax);
+
+    g_Window->SetSize(plusSize);
+
+    RequestRefresh(pParent);
+
+    event.Skip();
+}
+
+void Dlg::sizeminus(wxCommandEvent& event)
+{
+    wxSize currentSize = g_Window->GetSize();
+    wxSize plusSize;
+
+    plusSize.x = abs(currentSize.x * 0.8);
+    plusSize.y = abs(currentSize.y * 0.8);
 
     // not too small
     plusSize.x = wxMax(plusSize.x, 150);
@@ -161,9 +156,7 @@ void Dlg::sizeplus(wxCommandEvent& event) {
     RequestRefresh(pParent);
 
     event.Skip();
-
 }
-
 
 #endif // End of Android functions for move/resize
 
