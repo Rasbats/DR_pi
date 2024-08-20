@@ -78,6 +78,72 @@ wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
+GetHandle()->grabGesture(Qt::PanGesture);
+Connect(wxEVT_QT_PANGESTURE,
+    (wxObjectEventFunction)(wxEventFunction)&g_Window::OnEvtPanGesture,
+    NULL, this);
+
+void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event)
+{
+    int x = event.GetOffset().x;
+    int y = event.GetOffset().y;
+
+    int lx = event.GetLastOffset().x;
+    int ly = event.GetLastOffset().y;
+
+    int dx = x - lx;
+    int dy = y - ly;
+
+    switch (event.GetState()) {
+    case GestureStarted:
+        if (m_binPan)
+            break;
+
+        m_binPan = true;
+        break;
+
+    case GestureUpdated:
+        if (m_binPan) {
+            wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+            wxPoint par_pos_old
+                = ClientToScreen(wxPoint(0, 0)); // GetPosition();
+
+            wxPoint par_pos = par_pos_old;
+            par_pos.x += dx;
+            par_pos.y += dy;
+
+            par_pos.x = wxMax(par_pos.x, 0);
+            par_pos.y = wxMax(par_pos.y, 0);
+
+            wxSize mySize = GetSize();
+
+            if ((par_pos.y + mySize.y) > par_size.y)
+                par_pos.y = par_size.y - mySize.y;
+
+            if ((par_pos.x + mySize.x) > par_size.x)
+                par_pos.x = par_size.x - mySize.x;
+
+            wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
+            pane.FloatingPosition(par_pos).Float();
+            m_pauimgr->Update();
+        }
+        break;
+
+    case GestureFinished:
+        if (m_binPan) { }
+        m_binPan = false;
+
+        break;
+
+    case GestureCanceled:
+        m_binPan = false;
+        break;
+
+    default:
+        break;
+    }
+}
+
 void Dlg::OnPopupClick(wxCommandEvent& evt)
 {
     switch (evt.GetId()) {
@@ -100,22 +166,7 @@ void Dlg::OnDLeftClick(wxMouseEvent& event)
     PopupMenu(&mnu);
 }
 
-void Dlg::OnMouseEvent(wxMouseEvent& event)
-{
 
-    if (event.Dragging()) {
-        m_resizeStartPoint = event.GetPosition();
-        int x = wxMax(0, m_resizeStartPoint.x);
-        int y = wxMax(0, m_resizeStartPoint.y);
-        int xmax = ::wxGetDisplaySize().x - GetSize().x;
-        x = wxMin(x, xmax);
-        int ymax = ::wxGetDisplaySize().y
-            - (GetSize().y); // Some fluff at the bottom
-        y = wxMin(y, ymax);
-
-        g_Window->Move(x, y);
-    }
-}
 
 void Dlg::sizeplus(wxCommandEvent& event)
 {

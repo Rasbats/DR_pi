@@ -46,6 +46,10 @@
 #include <wx/window.h>
 #include <wx/menu.h>
 
+#ifdef __ANDROID__
+#include <wx/qt/private/wxQtGesture.h>
+#endif
+
 
 #define ID_SOMETHING 2001
 #define ID_SOMETHING_ELSE 2002
@@ -64,7 +68,7 @@ public:
     DR_pi* pPlugIn;
 
 #ifdef __ANDROID__
-    void OnMouseEvent(wxMouseEvent& event);    
+    //void OnMouseEvent(wxMouseEvent& event);    
     wxPoint m_resizeStartPoint;
     wxSize m_resizeStartSize;
     bool m_binResize;
@@ -74,6 +78,8 @@ public:
     void OnDLeftClick(wxMouseEvent& event);
     void sizeplus(wxCommandEvent& event);
     void sizeminus(wxCommandEvent& event);
+
+    void OnEvtPanGesture(wxQT_PanGestureEvent& event);
 
 #endif
 
