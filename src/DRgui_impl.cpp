@@ -64,7 +64,6 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
-    Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Dlg::OnMouseEvent));
     Connect(wxEVT_LEFT_UP, wxMouseEventHandler(Dlg::OnMouseEvent));
 
     Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
