@@ -120,8 +120,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 wxSize dragSize = currentSize;
 
-                dragSize.x = currentSize.x * 2;
-                dragSize.y = currentSize.y * 2;
+                dragSize.x = abs(currentSize.x * 1.2);
+                dragSize.y = abs(currentSize.y * 1.2);
 
                 // not too small
                 dragSize.x = wxMax(dragSize.x, 150);
