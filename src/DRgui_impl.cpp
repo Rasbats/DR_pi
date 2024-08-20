@@ -115,7 +115,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
         if (m_binResize2) {
 
-            if (event.LeftUp()) {
+            //if (event.LeftUp()) {
                 wxPoint p = event.GetPosition();
 
                 wxSize dragSize = currentSize;
@@ -131,9 +131,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
                 m_binResize = false;
                 m_binResize2 = false;                
-
-                g_Window->Update();
-            }
+                
+           // }
         }
     } else {
 
