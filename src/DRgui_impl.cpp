@@ -57,17 +57,21 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     pPlugIn->m_bShowDR = false;
 
+
 #ifdef __ANDROID__
 
     m_binResize = false;
 
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
-    Connect(wxEVT_QT_PANGESTURE,
-        (wxObjectEventFunction)(wxEventFunction)&Dlg::OnEvtPanGesture, NULL,
-        this);
+    Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(Dlg::OnMouseEvent));
+    Connect(wxEVT_LEFT_UP, wxMouseEventHandler(Dlg::OnMouseEvent));
+
+    Connect(wxEVT_MOTION, wxMouseEventHandler(Dlg::OnMouseEvent));
 
 #endif
+
+
 }
 
 Dlg::~Dlg() { }
@@ -76,69 +80,6 @@ Dlg::~Dlg() { }
 wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
-
-
-
-void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event)
-{
-    int x = event.GetOffset().x;
-    int y = event.GetOffset().y;
-
-    int lx = event.GetLastOffset().x;
-    int ly = event.GetLastOffset().y;
-
-    int dx = x - lx;
-    int dy = y - ly;
-
-    switch (event.GetState()) {
-    case GestureStarted:
-        if (m_binPan)
-            break;
-
-        m_binPan = true;
-        break;
-
-    case GestureUpdated:
-        if (m_binPan) {
-            wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
-            wxPoint par_pos_old
-                = ClientToScreen(wxPoint(0, 0)); // GetPosition();
-
-            wxPoint par_pos = par_pos_old;
-            par_pos.x += dx;
-            par_pos.y += dy;
-
-            par_pos.x = wxMax(par_pos.x, 0);
-            par_pos.y = wxMax(par_pos.y, 0);
-
-            wxSize mySize = GetSize();
-
-            if ((par_pos.y + mySize.y) > par_size.y)
-                par_pos.y = par_size.y - mySize.y;
-
-            if ((par_pos.x + mySize.x) > par_size.x)
-                par_pos.x = par_size.x - mySize.x;
-
-            wxAuiPaneInfo& pane = m_pauimgr->GetPane(this);
-            pane.FloatingPosition(par_pos).Float();
-            m_pauimgr->Update();
-        }
-        break;
-
-    case GestureFinished:
-        if (m_binPan) { }
-        m_binPan = false;
-
-        break;
-
-    case GestureCanceled:
-        m_binPan = false;
-        break;
-
-    default:
-        break;
-    }
-}
 
 void Dlg::OnPopupClick(wxCommandEvent& evt)
 {
@@ -153,7 +94,6 @@ void Dlg::OnPopupClick(wxCommandEvent& evt)
 
 void Dlg::OnDLeftClick(wxMouseEvent& event)
 {
-
     wxMenu mnu;
     mnu.Append(ID_SOMETHING, "Resize...");
     // mnu.Append(ID_SOMETHING_ELSE, "Do something else");
@@ -162,7 +102,81 @@ void Dlg::OnDLeftClick(wxMouseEvent& event)
     PopupMenu(&mnu);
 }
 
+void Dlg::OnMouseEvent(wxMouseEvent& event)
+{
+    if (m_binResize) {
+        wxSize currentSize = g_Window->GetSize();
+        wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
+        wxPoint par_pos = g_Window->GetPosition();
+        if (event.LeftDown()) {
+            m_resizeStartPoint = event.GetPosition();
+            m_resizeStartSize = currentSize;
+            m_binResize2 = true;
+        }
 
+        if (m_binResize2) {
+            if (event.Dragging()) {
+                wxPoint p = event.GetPosition();
+
+                wxSize dragSize = m_resizeStartSize;
+
+                dragSize.y = p.y; //  - m_resizeStartPoint.y;
+                dragSize.x = p.x; //  - m_resizeStartPoint.x;
+                ;
+                /*
+                if ((par_pos.y + dragSize.y) > par_size.y)
+                    dragSize.y = par_size.y - par_pos.y;
+
+                if ((par_pos.x + dragSize.x) > par_size.x)
+                    dragSize.x = par_size.x - par_pos.x;
+        */
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
+
+                int x = wxMax(0, m_resizeStartPoint.x);
+                int y = wxMax(0, m_resizeStartPoint.y);
+                int xmax = ::wxGetDisplaySize().x - GetSize().x;
+                x = wxMin(x, xmax);
+                int ymax = ::wxGetDisplaySize().y
+                    - (GetSize().y); // Some fluff at the bottom
+                y = wxMin(y, ymax);
+
+                g_Window->Move(x, y);
+            }
+            if (event.LeftUp()) {
+                wxPoint p = event.GetPosition();
+
+                wxSize dragSize = m_resizeStartSize;
+
+                dragSize.y = p.y;
+                dragSize.x = p.x;
+
+                // not too small
+                dragSize.x = wxMax(dragSize.x, 150);
+                dragSize.y = wxMax(dragSize.y, 150);
+
+                g_Window->SetSize(dragSize);
+
+                m_binResize = false;
+                m_binResize2 = false;
+            }
+        }
+    } else {
+        if (event.Dragging()) {
+            m_resizeStartPoint = event.GetPosition();
+            int x = wxMax(0, m_resizeStartPoint.x);
+            int y = wxMax(0, m_resizeStartPoint.y);
+            int xmax = ::wxGetDisplaySize().x - GetSize().x;
+            x = wxMin(x, xmax);
+            int ymax = ::wxGetDisplaySize().y
+                - (GetSize().y); // Some fluff at the bottom
+            y = wxMin(y, ymax);
+
+            g_Window->Move(x, y);
+        }
+    }
+}
 
 void Dlg::sizeplus(wxCommandEvent& event)
 {
@@ -180,7 +194,6 @@ void Dlg::sizeplus(wxCommandEvent& event)
     plusSize.y = wxMin(plusSize.y, ymax);
 
     g_Window->SetSize(plusSize);
-
 }
 
 void Dlg::sizeminus(wxCommandEvent& event)
@@ -188,14 +201,12 @@ void Dlg::sizeminus(wxCommandEvent& event)
     wxSize currentSize = g_Window->GetSize();
     wxSize minusSize;
 
-    minusSize.x = abs(currentSize.x * 0.8);
-    minusSize.y = abs(currentSize.y * 0.8);
-
-    
+    minusSize.x = abs(currentSize.x -25);
+    minusSize.y = abs(currentSize.y -25);
 
     g_Window->SetSize(minusSize);
-
 }
+
 
 #endif // End of Android functions for move/resize
 

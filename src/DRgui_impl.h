@@ -74,7 +74,6 @@ public:
     wxSize m_resizeStartSize;
     bool m_binResize;
     bool m_binResize2;
-    bool m_binPan;
 
 
     void OnPopupClick(wxCommandEvent& evt);
@@ -82,7 +81,6 @@ public:
     void sizeplus(wxCommandEvent& event);
     void sizeminus(wxCommandEvent& event);
 
-    void OnEvtPanGesture(wxQT_PanGestureEvent& event);
 
 #endif
 
@@ -105,7 +103,6 @@ private:
     double lat1, lon1, lat2, lon2;
     bool error_found;
     bool dbg;
-    wxAuiManager* m_pauimgr;
 
     wxString m_gpx_path;
 };
