@@ -72,6 +72,7 @@ public:
 
     void OnPopupClick(wxCommandEvent& evt);
     void OnDLeftClick(wxMouseEvent& event);
+    void sizeplus(wxCommandEvent& event);
 
 #endif
 

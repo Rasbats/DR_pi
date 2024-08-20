@@ -145,6 +145,26 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     RequestRefresh(pParent);
 }
 
+void Dlg::sizeplus(wxCommandEvent& event) {
+    wxSize currentSize = g_Window->GetSize();
+    wxSize plusSize;
+
+    plusSize.x = abs(currentSize.x * 1.2);
+    plusSize.y = abs(currentSize.y * 1.2);
+
+    // not too small
+    plusSize.x = wxMax(plusSize.x, 150);
+    plusSize.y = wxMax(plusSize.y, 150);
+
+    g_Window->SetSize(plusSize);
+
+    RequestRefresh(pParent);
+
+    event.Skip();
+
+}
+
+
 #endif // End of Android functions for move/resize
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,

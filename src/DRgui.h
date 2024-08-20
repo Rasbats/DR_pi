@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b3)
+// C++ code generated with wxFormBuilder (version 4.0.0-0-g0efcecf)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -45,10 +45,14 @@ class m_Dialog : public wxFrame
 		wxStaticLine* m_staticline1;
 		wxButton* m_button3111;
 		wxStaticText* m_staticText71;
+		wxButton* m_button2;
+		wxButton* m_button3;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void OnDLeftClick( wxMouseEvent& event ) { event.Skip(); }
 		virtual void OnPSGPX( wxCommandEvent& event ) { event.Skip(); }
+		virtual void sizeplus( wxCommandEvent& event ) { event.Skip(); }
+		virtual void sizeminus( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
