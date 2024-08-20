@@ -130,10 +130,9 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 g_Window->SetSize(dragSize);
 
                 m_binResize = false;
-                m_binResize2 = false;
+                m_binResize2 = false;                
 
-                g_Window->Move(p.x+1, p.y+1);
-
+                g_Window->Update();
             }
         }
     } else {
