@@ -57,8 +57,8 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     pPlugIn->m_bShowDR = false;
 
-#ifdef __ANDROID__    
-    
+#ifdef __ANDROID__
+
     m_binResize = false;
 
     g_Window = this;
@@ -84,8 +84,8 @@ void Dlg::OnPopupClick(wxCommandEvent& evt)
     case ID_SOMETHING:
         m_binResize = true;
         break;
-   // case ID_SOMETHING_ELSE:
-     //   break;
+        // case ID_SOMETHING_ELSE:
+        //   break;
     }
 }
 
@@ -94,7 +94,7 @@ void Dlg::OnDLeftClick(wxMouseEvent& event)
 
     wxMenu mnu;
     mnu.Append(ID_SOMETHING, "Resize...");
-   // mnu.Append(ID_SOMETHING_ELSE, "Do something else");
+    // mnu.Append(ID_SOMETHING_ELSE, "Do something else");
     mnu.Connect(wxEVT_COMMAND_MENU_SELECTED,
         wxCommandEventHandler(Dlg::OnPopupClick), NULL, this);
     PopupMenu(&mnu);
@@ -103,8 +103,8 @@ void Dlg::OnDLeftClick(wxMouseEvent& event)
 void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
-        
-        wxSize currentSize = g_Window->GetSize();        
+
+        wxSize currentSize = g_Window->GetSize();
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = g_Window->GetPosition();
         if (event.LeftDown()) {
@@ -115,36 +115,13 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
         if (m_binResize2) {
 
-            if (event.Dragging()) {
-                currentSize.operator*=(2);
-                /*
-                wxPoint p = event.GetPosition();
-
-                wxSize dragSize = m_resizeStartSize;
-
-                dragSize.y = p.y; //  - m_resizeStartPoint.y;
-                dragSize.x = p.x; //  - m_resizeStartPoint.x;
-                // not too small
-                dragSize.x = wxMax(dragSize.x, 150);
-                dragSize.y = wxMax(dragSize.y, 150);*/
-
-                int x = wxMax(0, m_resizeStartPoint.x);
-                int y = wxMax(0, m_resizeStartPoint.y);
-                int xmax = ::wxGetDisplaySize().x - GetSize().x;
-                x = wxMin(x, xmax);
-                int ymax = ::wxGetDisplaySize().y
-                    - (GetSize().y); // Some fluff at the bottom
-                y = wxMin(y, ymax);
-
-                g_Window->Move(x, y);
-            }
             if (event.LeftUp()) {
                 wxPoint p = event.GetPosition();
 
                 wxSize dragSize = currentSize;
 
-                dragSize.y = p.y; 
-                dragSize.x = p.x; 
+                dragSize.x = currentSize.x * 2;
+                dragSize.y = currentSize.y * 2;
 
                 // not too small
                 dragSize.x = wxMax(dragSize.x, 150);
@@ -173,7 +150,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
     }
 }
 
-#endif  // End of Android functions for move/resize
+#endif // End of Android functions for move/resize
 
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,
     wxString ptname, wxString ptsym, wxString pttype)
