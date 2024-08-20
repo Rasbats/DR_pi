@@ -134,9 +134,6 @@ void Dlg::sizeplus(wxCommandEvent& event)
 
     g_Window->SetSize(plusSize);
 
-    RequestRefresh(pParent);
-
-    event.Skip();
 }
 
 void Dlg::sizeminus(wxCommandEvent& event)
@@ -147,15 +144,10 @@ void Dlg::sizeminus(wxCommandEvent& event)
     plusSize.x = abs(currentSize.x * 0.8);
     plusSize.y = abs(currentSize.y * 0.8);
 
-    // not too small
-    plusSize.x = wxMax(plusSize.x, 150);
-    plusSize.y = wxMax(plusSize.y, 150);
+    
 
     g_Window->SetSize(plusSize);
 
-    RequestRefresh(pParent);
-
-    event.Skip();
 }
 
 #endif // End of Android functions for move/resize
