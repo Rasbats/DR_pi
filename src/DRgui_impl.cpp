@@ -121,6 +121,11 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
             m_binResize = false;
             m_binResize2 = false;
 
+            
+            RequestRefresh(pParent);
+            
+            event.Skip()
+
     } else {
 
         if (event.Dragging()) {
