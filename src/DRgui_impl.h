@@ -104,6 +104,7 @@ private:
     double lat1, lon1, lat2, lon2;
     bool error_found;
     bool dbg;
+    wxAuiManager* m_pauimgr;
 
     wxString m_gpx_path;
 };

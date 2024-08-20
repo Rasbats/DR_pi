@@ -63,6 +63,9 @@ Dlg::Dlg(wxWindow* parent, DR_pi* ppi)
 
     g_Window = this;
     GetHandle()->setStyleSheet(qtStyleSheet);
+    Connect(wxEVT_QT_PANGESTURE,
+        (wxObjectEventFunction)(wxEventFunction)&Dlg::OnEvtPanGesture, NULL,
+        this);
 
 #endif
 }
@@ -74,9 +77,7 @@ wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
-Connect(wxEVT_QT_PANGESTURE,
-    (wxObjectEventFunction)(wxEventFunction)&Dlg::OnEvtPanGesture,
-    NULL, this);
+
 
 void Dlg::OnEvtPanGesture(wxQT_PanGestureEvent& event)
 {
