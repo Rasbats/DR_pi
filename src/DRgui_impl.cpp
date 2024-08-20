@@ -200,8 +200,8 @@ void Dlg::sizeminus(wxCommandEvent& event)
     wxSize currentSize = g_Window->GetSize();
     wxSize minusSize;
 
-    minusSize.x = abs(currentSize.x -25);
-    minusSize.y = abs(currentSize.y -25);
+    minusSize.x = currentSize.x - 50;
+    minusSize.y = currentSize.y - 50;
 
     g_Window->SetSize(minusSize);
 }
