@@ -69,12 +69,11 @@ public:
     DR_pi* pPlugIn;
 
 #ifdef __ANDROID__
-    //void OnMouseEvent(wxMouseEvent& event);    
+    void OnMouseEvent(wxMouseEvent& event);    
     wxPoint m_resizeStartPoint;
     wxSize m_resizeStartSize;
     bool m_binResize;
     bool m_binResize2;
-
 
     void OnPopupClick(wxCommandEvent& evt);
     void OnDLeftClick(wxMouseEvent& event);
