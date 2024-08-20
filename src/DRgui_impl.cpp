@@ -139,14 +139,14 @@ void Dlg::sizeplus(wxCommandEvent& event)
 void Dlg::sizeminus(wxCommandEvent& event)
 {
     wxSize currentSize = g_Window->GetSize();
-    wxSize plusSize;
+    wxSize minusSize;
 
-    plusSize.x = abs(currentSize.x * 0.8);
-    plusSize.y = abs(currentSize.y * 0.8);
+    minusSize.x = abs(currentSize.x * 0.8);
+    minusSize.y = abs(currentSize.y * 0.8);
 
     
 
-    g_Window->SetSize(plusSize);
+    g_Window->SetSize(minusSize);
 
 }
 
