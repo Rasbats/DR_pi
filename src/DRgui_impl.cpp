@@ -74,7 +74,6 @@ wxPoint g_startPos;
 wxPoint g_startMouse;
 wxPoint g_mouse_pos_screen;
 
-GetHandle()->grabGesture(Qt::PanGesture);
 Connect(wxEVT_QT_PANGESTURE,
     (wxObjectEventFunction)(wxEventFunction)&g_Window::OnEvtPanGesture,
     NULL, this);
