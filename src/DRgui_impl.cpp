@@ -104,7 +104,6 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 {
     if (m_binResize) {
 
-        wxSize currentSize = g_Window->GetSize();
         wxSize par_size = GetOCPNCanvasWindow()->GetClientSize();
         wxPoint par_pos = g_Window->GetPosition();
         if (event.LeftDown()) {
@@ -115,24 +114,24 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
 
         if (m_binResize2) {
 
-            //if (event.LeftUp()) {
-                wxPoint p = event.GetPosition();
+            // if (event.LeftUp()) {
+            wxPoint p = event.GetPosition();
+            wxSize currentSize = g_Window->GetSize();
+            wxSize dragSize = currentSize;
 
-                wxSize dragSize = currentSize;
+            dragSize.x = abs(currentSize.x * 1.2);
+            dragSize.y = abs(currentSize.y * 1.2);
 
-                dragSize.x = abs(currentSize.x * 1.2);
-                dragSize.y = abs(currentSize.y * 1.2);
+            // not too small
+            dragSize.x = wxMax(dragSize.x, 150);
+            dragSize.y = wxMax(dragSize.y, 150);
 
-                // not too small
-                dragSize.x = wxMax(dragSize.x, 150);
-                dragSize.y = wxMax(dragSize.y, 150);
+            g_Window->SetSize(dragSize);
 
-                g_Window->SetSize(dragSize);
+            m_binResize = false;
+            m_binResize2 = false;
 
-                m_binResize = false;
-                m_binResize2 = false;                
-                
-           // }
+            // }
         }
     } else {
 
@@ -150,7 +149,7 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
         }
     }
 
-                    RequestRefresh(pParent);
+    RequestRefresh(pParent);
 }
 
 #endif // End of Android functions for move/resize
