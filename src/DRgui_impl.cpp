@@ -132,7 +132,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
                 m_binResize = false;
                 m_binResize2 = false;
 
-                RequestRefresh(pParent);
+                g_Window->Move(p.x+1, p.y+1);
+
             }
         }
     } else {
@@ -150,6 +151,8 @@ void Dlg::OnMouseEvent(wxMouseEvent& event)
             g_Window->Move(x, y);
         }
     }
+
+                    RequestRefresh(pParent);
 }
 
 #endif // End of Android functions for move/resize
