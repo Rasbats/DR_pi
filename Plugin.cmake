@@ -83,4 +83,7 @@ macro(add_plugin_libraries)
   add_subdirectory("${CMAKE_SOURCE_DIR}/opencpn-libs/plugin_dc")
   target_link_libraries(${PACKAGE_NAME} ocpn::plugin-dc)
 
+  add_subdirectory(opencpn-libs/plugingl)
+  target_link_libraries(SOME_PLUGIN_TARGET PRIVATE ocpn::pluginglu)
+
 endmacro ()
