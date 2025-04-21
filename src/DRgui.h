@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 4.0.0-0-g0efcecf)
+// C++ code generated with wxFormBuilder (version 4.2.1-0-g80c4cb6)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -18,6 +18,7 @@
 #include <wx/sizer.h>
 #include <wx/textctrl.h>
 #include <wx/choice.h>
+#include <wx/clrpicker.h>
 #include <wx/statline.h>
 #include <wx/button.h>
 #include <wx/bitmap.h>
@@ -26,7 +27,6 @@
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
-
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class m_Dialog
@@ -42,6 +42,7 @@ class m_Dialog : public wxFrame
 		wxStaticText* m_staticText32111111;
 		wxStaticText* m_staticText3311111;
 		wxStaticText* m_staticText7;
+		wxColourPickerCtrl* m_colourPicker1;
 		wxStaticLine* m_staticline1;
 		wxButton* m_button3111;
 		wxStaticText* m_staticText71;
