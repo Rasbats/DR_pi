@@ -62,7 +62,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //---------------------------------------------------------------------------------------------------------
 
 DR_pi::DR_pi(void *ppimgr)
-      :opencpn_plugin_116 (ppimgr)
+      :opencpn_plugin_118 (ppimgr)
 {
       // Create the PlugIn icons
       initialize_images();
@@ -184,6 +184,11 @@ int DR_pi::GetPlugInVersionMinor()
 {
       return PLUGIN_VERSION_MINOR;
 }
+
+int GetPlugInVersionPatch() { return PLUGIN_VERSION_PATCH; }
+int GetPlugInVersionPost() { return PLUGIN_VERSION_TWEAK; }
+const char *GetPlugInVersionPre() { return PKG_PRERELEASE; }
+const char *GetPlugInVersionBuild() { return PKG_BUILD_INFO; }
 
 wxBitmap *DR_pi::GetPlugInBitmap()
 {

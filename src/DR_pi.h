@@ -55,7 +55,7 @@
 
 class Dlg;
 
-class DR_pi : public opencpn_plugin_116
+class DR_pi : public opencpn_plugin_118
 {
 public:
       DR_pi(void *ppimgr);
