@@ -25,10 +25,10 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/frame.h>
+#include "pidc.h"
 
 #ifdef __ANDROID__
 #include <qopengl.h>
-#include "GL/gl_private.h"
 #endif
 
 ///////////////////////////////////////////////////////////////////////////
