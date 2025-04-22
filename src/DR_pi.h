@@ -43,9 +43,8 @@
 #include "pidc.h"
 #include "config.h"
 
-#if defined(__ANDROID__) || defined(__OCPN__ANDROID__)
+#ifdef __ANDROID__
 #include <qopengl.h>
-#include "GL/gl_private.h"
 #endif
 
 //----------------------------------------------------------------------------------------------------------
