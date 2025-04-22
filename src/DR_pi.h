@@ -43,11 +43,9 @@
 #include "pidc.h"
 #include "config.h"
 
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(__OCPN__ANDROID__)
 #include <qopengl.h>
-typedef double GLdouble;
 #include "GL/gl_private.h"
-
 #endif
 
 //----------------------------------------------------------------------------------------------------------
