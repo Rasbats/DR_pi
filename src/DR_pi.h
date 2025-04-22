@@ -40,7 +40,7 @@
 #include "ocpn_plugin.h" //Required for OCPN plugin functions
 #include "DRgui_impl.h"
 #include "DRgui.h"
-
+#include "pidc.h"
 #include "config.h"
 
 #ifdef __ANDROID__
