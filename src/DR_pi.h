@@ -43,6 +43,14 @@
 
 #include "config.h"
 
+#ifdef __ANDROID__
+#include <qopengl.h>
+typedef double GLdouble;
+#define GL_GLEXT_LEGACY 1
+#include "GLES2/gl2.h"
+#include "glu_gl.h"
+#include "GL/glu.h"
+#endif
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
