@@ -50,6 +50,7 @@ typedef double GLdouble;
 #include "GLES2/gl2.h"
 #include "glu_gl.h"
 #include "GL/glu.h"
+#include "GL/gl_private.h"
 #endif
 
 //----------------------------------------------------------------------------------------------------------
