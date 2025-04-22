@@ -45,7 +45,9 @@
 
 #ifdef __ANDROID__
 #include <qopengl.h>
+typedef double GLdouble;
 #include "GL/gl_private.h"
+
 #endif
 
 //----------------------------------------------------------------------------------------------------------
