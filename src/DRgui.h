@@ -18,17 +18,13 @@
 #include <wx/sizer.h>
 #include <wx/textctrl.h>
 #include <wx/choice.h>
-#include "wx/clrpicker.h"
+#include <wx/clrpicker.h>
 #include <wx/statline.h>
 #include <wx/button.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/frame.h>
-
-#ifdef __ANDROID__
-#include <qopengl.h>
-#endif
 
 ///////////////////////////////////////////////////////////////////////////
 
