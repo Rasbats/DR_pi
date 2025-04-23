@@ -209,6 +209,10 @@ void Dlg::sizeminus(wxCommandEvent& event)
 
 #endif // End of Android functions for move/resize
 
+void Dlg::OnColourChanged(wxColourPickerEvent& event) {
+  wxMessageBox("here");
+}
+
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon,
     wxString ptname, wxString ptsym, wxString pttype)
 {

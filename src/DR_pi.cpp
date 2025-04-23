@@ -138,11 +138,7 @@ int DR_pi::Init(void)
            );
 }
 
-void DR_pi::OnColourChanged(wxColourPickerEvent &event){
 
-wxMessageBox("here");
-
-}
 
 bool DR_pi::DeInit(void)
 {

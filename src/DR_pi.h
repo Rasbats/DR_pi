@@ -96,7 +96,6 @@ public:
   void SetCalculatorDialogHeight(int x) { m_route_dialog_height = x; };
 
   void OnDRDialogClose();
-  void OnColourChanged(wxColourPickerEvent &event);
 
   wxWindow *m_parent_window;
   bool m_bShowDR;

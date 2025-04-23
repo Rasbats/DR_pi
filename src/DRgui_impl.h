@@ -95,6 +95,8 @@ public:
 
     wxString rte_start;
     wxString rte_end;
+    void OnColourChanged(wxColourPickerEvent& event);
+
 
 
 private:
