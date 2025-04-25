@@ -32,9 +32,8 @@
 
 #include "ODPlatform.h"
 #include "ocpn_plugin.h"
-#include "DR_pi.h"
 
-#ifdef __OCPN__ANDROID__
+#ifdef __ANDROID__
 unsigned int androidColorPicker( unsigned int initialColor);
 #endif
 
@@ -112,7 +111,7 @@ void ODColourPickerCtrl::InitColourData()
 
 void ODColourPickerCtrl::OnButtonClick(wxCommandEvent& WXUNUSED(ev))
 {
-#ifdef __OCPN__ANDROID__
+#ifdef __ANDROID__
   unsigned int cco = 0;
   cco |= 0xff;  cco  = cco << 8;
   cco |= m_colour.Red(); cco = cco << 8;
@@ -144,7 +143,7 @@ void ODColourPickerCtrl::OnButtonClick(wxCommandEvent& WXUNUSED(ev))
 
 void ODColourPickerCtrl::UpdateColour()
 {
-#ifndef __OCPN__ANDROID__
+#ifndef __ANDROID__
     SetBitmapLabel(wxBitmap());
 #endif
 

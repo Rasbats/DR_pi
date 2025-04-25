@@ -107,11 +107,11 @@ m_Dialog::m_Dialog(wxWindow* parent, wxWindowID id, const wxString& title,
                               wxDefaultPosition, wxDefaultSize, 0);
   bSizer71->Add(m_button3111, 0, wxALIGN_CENTER_HORIZONTAL | wxALL | wxEXPAND,
                 5);
-
+  
   myColourPickerCtrl = new ODColourPickerCtrl(this, wxID_ANY,
                                           wxNullBitmap, wxDefaultPosition,
                                           wxDefaultSize, wxBU_AUTODRAW | 0);
-  bSizer71->Add(myColourPickerCtrl, 0, wxALL, 5);
+  bSizer71->Add(myColourPickerCtrl , 0, wxALL, 5);
 
   m_staticText71 = new wxStaticText(
       this, wxID_ANY,
@@ -155,9 +155,7 @@ m_Dialog::m_Dialog(wxWindow* parent, wxWindowID id, const wxString& title,
                      wxCommandEventHandler(m_Dialog::sizeplus), NULL, this);
   m_button3->Connect(wxEVT_COMMAND_BUTTON_CLICKED,
                      wxCommandEventHandler(m_Dialog::sizeminus), NULL, this);
-  m_colourPicker1->Connect(
-      wxEVT_COMMAND_COLOURPICKER_CHANGED,
-      wxColourPickerEventHandler(m_Dialog::OnColourChanged), NULL, this);
+  
 }
 
 m_Dialog::~m_Dialog() {
@@ -174,7 +172,5 @@ m_Dialog::~m_Dialog() {
                         wxCommandEventHandler(m_Dialog::sizeplus), NULL, this);
   m_button3->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED,
                         wxCommandEventHandler(m_Dialog::sizeminus), NULL, this);
-  m_colourPicker1->Connect(
-      wxEVT_COMMAND_COLOURPICKER_CHANGED,
-      wxColourPickerEventHandler(m_Dialog::OnColourChanged), NULL, this);
+  
 }
