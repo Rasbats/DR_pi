@@ -25,6 +25,9 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/frame.h>
+#include "ODPlatform.h"
+
+class ODColourPicker;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -58,6 +61,7 @@ protected:
     wxTextCtrl* m_Speed_PS;
     wxChoice* m_Nship;
     wxTextCtrl* m_Route;
+    ODColourPickerCtrl* myColourPickerCtrl;
 
     m_Dialog(wxWindow * parent, wxWindowID id = wxID_ANY,
              const wxString& title = wxEmptyString,

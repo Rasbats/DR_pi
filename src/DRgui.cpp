@@ -108,10 +108,10 @@ m_Dialog::m_Dialog(wxWindow* parent, wxWindowID id, const wxString& title,
   bSizer71->Add(m_button3111, 0, wxALIGN_CENTER_HORIZONTAL | wxALL | wxEXPAND,
                 5);
 
-  m_colourPicker1 =
-      new wxColourPickerCtrl(this, wxID_ANY, *wxBLACK, wxDefaultPosition,
-                             wxDefaultSize, wxCLRP_DEFAULT_STYLE);
-  bSizer71->Add(m_colourPicker1, 0, wxALL, 5);
+  myColourPickerCtrl = new ODColourPickerCtrl(this, wxID_ANY,
+                                          wxNullBitmap, wxDefaultPosition,
+                                          wxDefaultSize, wxBU_AUTODRAW | 0);
+  bSizer71->Add(myColourPickerCtrl, 0, wxALL, 5);
 
   m_staticText71 = new wxStaticText(
       this, wxID_ANY,

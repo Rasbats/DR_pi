@@ -60,6 +60,8 @@ set(SRC
     src/DRgui_impl.h
     src/NavFunc.cpp
     src/NavFunc.h
+    src/ODPlatform.cpp
+    src/ODPlatform.h
 )
 
 set(PKG_API_LIB api-18)  #  A directory in libs/ e. g., api-17 or api-16
